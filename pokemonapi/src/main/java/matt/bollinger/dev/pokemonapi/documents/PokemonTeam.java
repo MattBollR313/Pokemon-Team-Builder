@@ -1,4 +1,4 @@
-package matt.bollinger.dev.pokemonapi;
+package matt.bollinger.dev.pokemonapi.documents;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pokemon {
+public class PokemonTeam {
     
     @Id
     private ObjectId id;
