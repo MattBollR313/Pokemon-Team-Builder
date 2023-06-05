@@ -1,7 +1,6 @@
 package matt.bollinger.dev.pokemonapi.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,15 +56,15 @@ public class PokedexService {
         pokedexNames.set(0, "Kanto (Gen 1/3)");
         pokedexNames.set(1, "Johto (Gen 2)");
         pokedexNames.set(2, "Hoenn (Gen 3)");
-        pokedexNames.set(3, "Sinnoh (D/P Gen 4)");
+        pokedexNames.set(3, "Sinnoh (DP Gen 4)");
         pokedexNames.set(4, "Sinnoh (Plat Gen 4)");
         pokedexNames.set(5, "Johto (Gen 4)");
-        pokedexNames.set(6, "Unova (B/W Gen 5)");
-        pokedexNames.set(7, "Unova (B2/W2 Gen 5)");
+        pokedexNames.set(6, "Unova (BW Gen 5)");
+        pokedexNames.set(7, "Unova (B2W2 Gen 5)");
         pokedexNames.set(8, "Kalos (Gen 6)");
         pokedexNames.set(9, "Hoenn (Gen 6)");
-        pokedexNames.set(10, "Alola (S/M Gen 7)");
-        pokedexNames.set(11, "Alola (US/UM Gen 7)");
+        pokedexNames.set(10, "Alola (SM Gen 7)");
+        pokedexNames.set(11, "Alola (USUM Gen 7)");
         pokedexNames.set(12, "Kanto (Let's Go)");
         pokedexNames.set(13, "Galar (Gen 8)");
         pokedexNames.set(14, "Hisui (Gen 9)");
