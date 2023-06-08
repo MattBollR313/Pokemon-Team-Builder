@@ -1,11 +1,11 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import api from './api/axiosConfig';
 import {useState, useEffect} from 'react';
 
 function App() {
 
-  const [pokemon, setPokemon] = useState();
+  const [pokemon, setPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getPokemon = async () => {
 
@@ -35,6 +35,7 @@ function App() {
       }
     </div>
   );
+  
 }
 
 export default App;
