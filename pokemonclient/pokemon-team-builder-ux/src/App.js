@@ -26,7 +26,13 @@ function App() {
 
   return (
     <div className="App">
-      <h3>Hello World</h3>
+      {
+        pokemon.map((singlePokemon) => {
+          return(
+            <h4>{singlePokemon.teamName}</h4>
+          )
+        })
+      }
     </div>
   );
 }
