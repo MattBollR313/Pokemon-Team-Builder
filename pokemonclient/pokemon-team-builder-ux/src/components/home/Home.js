@@ -1,16 +1,14 @@
 import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col } from "react-bootstrap";
 import PokemonSlot from '../pokemonSlot/PokemonSlot';
 
 const Home = ({pokemon}) => {
-  /*return (
-    <div>
-      Hello World
-    </div>
-  )*/
-  
   return (
-    <div>
-        {
+    <Container fluid="md">
+      <Row>
+        <Col className="justify-content-md-left" xs={12} md={4}>
+          {
             pokemon.map((singlePokemon) => {
             return(
                 <div>
@@ -19,8 +17,13 @@ const Home = ({pokemon}) => {
                 </div>
             )
             })
-        }
-    </div>
+          }
+        </Col>
+        <Col xs={12} md={8}>
+          <div>Dropdown Placeholder</div>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

@@ -37,18 +37,6 @@ function App() {
     </div>
   );
   
-  /*return (
-    <div>
-      {
-        pokemon.map((singlePokemon) => {
-          return(
-            <h4>{singlePokemon.teamName}</h4>
-          )
-        })
-      }
-    </div>
-  );*/
-  
 }
 
 export default App;
