@@ -12,16 +12,16 @@ import matt.bollinger.dev.pokemonapi.documents.*;
 @Service
 public class AvailablePokemonService {
     
-    private String url = "https://pokeapi.co/api/v2/pokedex/";
+    private static final String url = "https://pokeapi.co/api/v2/pokedex/";
 
     @Autowired
     private WebClient builder;
     
     public List<String> availablePokemon(String pokemonGame) {
         String correctGameName = convertGameName(pokemonGame);
-        url += correctGameName;
+        String apiUrl = url + correctGameName;
 		
-        Pokedex pokemonExample = builder.get().uri(url).retrieve().bodyToMono(Pokedex.class).block();
+        Pokedex pokemonExample = builder.get().uri(apiUrl).retrieve().bodyToMono(Pokedex.class).block();
 
         List<PokemonEntry> pokemonEntries = pokemonExample.getPokemon_entries();
         List<String> pokemonNames = new ArrayList<>();
