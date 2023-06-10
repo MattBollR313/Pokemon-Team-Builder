@@ -47,6 +47,7 @@ const PokemonSlot = ({availablePokemon}) => {
 
   const handlePokemonChange = (selectedOption) => {
     setPokemonInfo(selectedOption.label);
+    setAddClick(false);
     console.log(`Option selected:`, selectedOption);
   };
 
