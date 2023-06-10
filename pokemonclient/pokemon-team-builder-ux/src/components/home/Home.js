@@ -131,14 +131,40 @@ const Home = () => {
         </Col>
         <Col xs={12} md={6}>
           {
-            pokemon.map((singlePokemon) => {
-            return(
-                <div>
-                  {<PokemonSlot singlePokemon={singlePokemon} />}
-                  <br/>
-                </div>
-            )
-            })
+            <div>
+              {<PokemonSlot availablePokemon={availPokemon} />}
+              <br/>
+            </div>
+          }
+          {
+            <div>
+              {<PokemonSlot availablePokemon={availPokemon} />}
+              <br/>
+            </div>
+          }
+          {
+            <div>
+              {<PokemonSlot availablePokemon={availPokemon} />}
+              <br/>
+            </div>
+          }
+          {
+            <div>
+              {<PokemonSlot availablePokemon={availPokemon} />}
+              <br/>
+            </div>
+          }
+          {
+            <div>
+              {<PokemonSlot availablePokemon={availPokemon} />}
+              <br/>
+            </div>
+          }
+          {
+            <div>
+              {<PokemonSlot availablePokemon={availPokemon} />}
+              <br/>
+            </div>
           }
         </Col>
       </Row>
