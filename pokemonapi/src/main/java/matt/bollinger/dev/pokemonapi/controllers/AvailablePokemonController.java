@@ -1,5 +1,6 @@
 package matt.bollinger.dev.pokemonapi.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class AvailablePokemonController {
     
     @Autowired
     private AvailablePokemonService pokemonService;
+
+    @GetMapping("/")
+    public ResponseEntity<List<String>> getSamplePokemonNoArgs() {
+        return new ResponseEntity<List<String>>(new ArrayList<String>(), HttpStatus.OK);
+    }
 
     @GetMapping("/{pokemonGame}")
     public ResponseEntity<List<String>> getSamplePokemon(@PathVariable String pokemonGame) {

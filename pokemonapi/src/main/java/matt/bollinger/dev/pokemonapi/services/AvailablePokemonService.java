@@ -18,7 +18,8 @@ public class AvailablePokemonService {
     private WebClient builder;
     
     public List<String> availablePokemon(String pokemonGame) {
-        String correctGameName = convertGameName(pokemonGame);
+        // String correctGameName = convertGameName(pokemonGame);
+        String correctGameName = pokemonGame;
         String apiUrl = url + correctGameName;
 		
         Pokedex pokemonExample = builder.get().uri(apiUrl).retrieve().bodyToMono(Pokedex.class).block();
@@ -68,7 +69,7 @@ public class AvailablePokemonService {
             case "Paldea (Gen 9)":
                 return "paldea";
             default:
-                return null;
+                return "";
         }
     }
 }
