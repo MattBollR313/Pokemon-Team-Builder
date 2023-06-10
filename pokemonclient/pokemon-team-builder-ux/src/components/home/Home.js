@@ -123,7 +123,13 @@ const Home = () => {
   return (
     <Container fluid="md">
       <Row style={{marginTop: '2rem'}}>
-        <Col xs={12} md={4}>
+        <Col xs={12} md={6}>
+          <Col className="mx-auto" md={6}>
+            <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} /></div>
+            <div className="d-md-none">&nbsp;</div>
+          </Col>
+        </Col>
+        <Col xs={12} md={6}>
           {
             pokemon.map((singlePokemon) => {
             return(
@@ -134,11 +140,6 @@ const Home = () => {
             )
             })
           }
-        </Col>
-        <Col xs={12} md={8}>
-          <Col className="mx-auto" md={6}>
-            <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} /></div>
-          </Col>
         </Col>
       </Row>
     </Container>
