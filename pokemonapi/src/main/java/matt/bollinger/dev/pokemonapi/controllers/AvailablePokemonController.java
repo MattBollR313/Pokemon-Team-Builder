@@ -22,13 +22,13 @@ public class AvailablePokemonController {
     @Autowired
     private AvailablePokemonService pokemonService;
 
-    @GetMapping("")
-    public ResponseEntity<List<String>> getSamplePokemonNoArgs() {
+    @GetMapping
+    public ResponseEntity<List<String>> getAvailablePokemonNoArgs() {
         return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/{pokemonGame}")
-    public ResponseEntity<List<String>> getSamplePokemon(@PathVariable String pokemonGame) {
+    public ResponseEntity<List<String>> getAvailablePokemon(@PathVariable String pokemonGame) {
         try {
             return new ResponseEntity<List<String>>(pokemonService.availablePokemon(pokemonGame), HttpStatus.OK);
         } catch (Exception e) {
