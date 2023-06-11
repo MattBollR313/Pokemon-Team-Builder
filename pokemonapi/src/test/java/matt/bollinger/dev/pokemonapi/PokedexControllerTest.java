@@ -13,25 +13,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import matt.bollinger.dev.pokemonapi.controllers.SamplePokemonController;
-import matt.bollinger.dev.pokemonapi.services.SamplePokemonService;
+import matt.bollinger.dev.pokemonapi.controllers.PokedexController;
+import matt.bollinger.dev.pokemonapi.services.PokedexService;
 
-@WebMvcTest(SamplePokemonController.class)
-public class SamplePokemonControllerTest {
+@WebMvcTest(PokedexController.class)
+public class PokedexControllerTest {
 
-	private static final String endPoint = "/api/samplepokemon";
+	private static final String endPoint = "/api/pokedex";
 
 	@Autowired
 	private MockMvc mockMvc;
 	@MockBean 
-	private SamplePokemonService service;
+	private PokedexService service;
 
 	@Test
 	public void testProperListResponse() throws Exception {
-		String[] pokemonNames = {"Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard"};
-		List<String> correctPokemon = new ArrayList<String>(Arrays.asList(pokemonNames));
+		String[] pokemonGameNames = {"Kanto (Gen 1/3)","Johto (Gen 2)","Hoenn (Gen 3)","Sinnoh (DP Gen 4)","Sinnoh (Plat Gen 4)","Johto (Gen 4)","Unova (BW Gen 5)","Unova (B2W2 Gen 5)","Kalos (Gen 6)","Hoenn (Gen 6)","Alola (SM Gen 7)","Alola (USUM Gen 7)","Kanto (Let's Go)","Galar (Gen 8)","Hisui (Gen 9)","Paldea (Gen 9)"};
+        List<String> correctPokemonGames = new ArrayList<String>(Arrays.asList(pokemonGameNames));
 		
-		Mockito.when(service.sixPokemon()).thenReturn(correctPokemon);
+		Mockito.when(service.allPokedex()).thenReturn(correctPokemonGames);
 		mockMvc.perform(MockMvcRequestBuilders.get(endPoint).contentType("application/json"))
 			.andExpect(MockMvcResultMatchers.status().isOk());
 	}
