@@ -52,7 +52,7 @@ const PokemonSlot = ({availablePokemon}) => {
             <Button variant="danger" onClick={handleRemoveClick}>Remove</Button>
           </Col>
           <Col xs={12} md={6}>
-            <Box sx={{ p: 2, border: '1px dashed grey', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
+            <Box sx={{ p: 2, border: '1px dashed grey', minHeight: '60px', marginTop: '1.5rem', marginBottom: '1.5rem' }}>
               <div>{pokemonInfo}</div>
             </Box>
           </Col>

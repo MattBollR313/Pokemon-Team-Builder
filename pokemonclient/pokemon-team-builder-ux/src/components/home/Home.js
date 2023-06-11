@@ -121,7 +121,7 @@ const Home = () => {
   
 
   return (
-    <Container fluid="md">
+    <Container fluid="md" data-testid="home-1">
       <Row style={{marginTop: '2rem'}}>
         <Col xs={12} md={6}>
           <Col className="mx-auto" md={6}>
@@ -133,37 +133,31 @@ const Home = () => {
           {
             <div>
               {<PokemonSlot availablePokemon={availPokemon} />}
-              <br/>
             </div>
           }
           {
             <div>
               {<PokemonSlot availablePokemon={availPokemon} />}
-              <br/>
             </div>
           }
           {
             <div>
               {<PokemonSlot availablePokemon={availPokemon} />}
-              <br/>
             </div>
           }
           {
             <div>
               {<PokemonSlot availablePokemon={availPokemon} />}
-              <br/>
             </div>
           }
           {
             <div>
               {<PokemonSlot availablePokemon={availPokemon} />}
-              <br/>
             </div>
           }
           {
             <div>
               {<PokemonSlot availablePokemon={availPokemon} />}
-              <br/>
             </div>
           }
         </Col>
