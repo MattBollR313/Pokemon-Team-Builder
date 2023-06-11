@@ -8,7 +8,7 @@ import PokemonSlot from '../pokemonSlot/PokemonSlot';
 
 const Home = () => {
 
-  // Function to alter value of game to right variable for API Call
+  // Function to alter value of game to right string for API Call
   const modifyGameName = (gameName) => {
     switch (gameName) {
       case "Kanto (Gen 1/3)":
@@ -48,7 +48,7 @@ const Home = () => {
     }
   }
  
-  // Sample Pokemon Options
+  // Sample Pokemon API Request
   const [pokemon, setPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getPokemon = async () => {
@@ -64,7 +64,7 @@ const Home = () => {
      
   }
 
-  // Pokemon Game Dropdown Options
+  // Pokemon Game API Request
   const [pokemonGame, setPokemonGame] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getPokemonGame = async () => {
@@ -85,7 +85,7 @@ const Home = () => {
     getPokemonGame();
   },[])
 
-  // Available Pokemon
+  // Available Pokemon API Request
   const [availPokemon, setAvailPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getAvailPokemon = async (selectedGame) => {
@@ -101,7 +101,7 @@ const Home = () => {
      
   }
 
-  // Pokemon Game Dropdown Values
+  // Pokemon Game Dropdown Functionality
   const gameOptions = [];
   for (let i = 0; i < pokemonGame.length; i++) {
     gameOptions.push({

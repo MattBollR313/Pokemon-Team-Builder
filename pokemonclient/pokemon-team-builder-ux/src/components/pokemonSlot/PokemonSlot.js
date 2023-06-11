@@ -10,20 +10,13 @@ const PokemonSlot = ({availablePokemon}) => {
 
   const [pokemonInfo, setPokemonInfo] = useState(null);
 
-  /*const getPokemonInfo = () => {
-    //console.log(`Pokemon Info:`, availablePokemon);
-    setPokemonInfo(availablePokemon);
-  };
-
-  useEffect(() => {
-    getPokemonInfo();
-  },[]);*/
-
+  // Remove Button Functionality
   const handleRemoveClick = () => {
     setPokemonInfo(null);
     console.log("Box Cleared");
   };
 
+  // Add Button Functionality
   const [addClick, setAddClick] = useState(false);
 
   const handleAddClick = () => {
@@ -70,7 +63,6 @@ const PokemonSlot = ({availablePokemon}) => {
         </Row>
       </Container>
     </div>
-    
   )
 }
 

@@ -33,43 +33,5 @@ public class AvailablePokemonService {
 
         return pokemonNames;
     }
-
-    private String convertGameName(String pokemonGame) {
-        switch (pokemonGame) {
-            case "Kanto (Gen 1/3)":
-                return "kanto";
-            case "Johto (Gen 2)":
-                return "original-johto";
-            case "Hoenn (Gen 3)":
-                return "hoenn";
-            case "Sinnoh (DP Gen 4)":
-                return "original-sinnoh";
-            case "Sinnoh (Plat Gen 4)":
-                return "extended-sinnoh";
-            case "Johto (Gen 4)":
-                return "updated-johto";
-            case "Unova (BW Gen 5)":
-                return "original-unova";
-            case "Unova (B2W2 Gen 5)":
-                return "updated-unova";
-            case "Kalos (Gen 6)":
-                return "kalos-central";
-            case "Hoenn (Gen 6)":
-                return "updated-hoenn"; 
-            case "Alola (SM Gen 7)":
-                return "original-alola";
-            case "Alola (USUM Gen 7)":
-                return "updated-alola";
-            case "Kanto (Let's Go)":
-                return "letsgo-kanto";
-            case "Galar (Gen 8)":
-                return "galar";
-            case "Hisui (Gen 9)":
-                return "hisui";
-            case "Paldea (Gen 9)":
-                return "paldea";
-            default:
-                return "";
-        }
-    }
+    
 }
