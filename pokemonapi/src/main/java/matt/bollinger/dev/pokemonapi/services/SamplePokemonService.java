@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -17,9 +18,12 @@ public class SamplePokemonService {
     @Autowired
     private WebClient builder;
     
-    public List<String> sixPokemon() {
+    public List<String> sixPokemon() throws Exception {
 		
-        Pokedex pokemonExample = builder.get().uri(url).retrieve().bodyToMono(Pokedex.class).block();
+        Pokedex pokemonExample = builder.get().uri(url).retrieve()
+            .onStatus(HttpStatus.NOT_FOUND::equals,
+                response -> response.bodyToMono(String.class).map(Exception::new))
+            .bodyToMono(Pokedex.class).block();
 
         List<PokemonEntry> pokemonEntries = pokemonExample.getPokemon_entries();
         String[] firstSixPokemon = new String[6];

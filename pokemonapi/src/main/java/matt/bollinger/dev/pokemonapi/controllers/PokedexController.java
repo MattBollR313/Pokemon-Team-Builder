@@ -24,11 +24,19 @@ public class PokedexController {
 
     @GetMapping
     public ResponseEntity<List<String>> getPokedex() {
-        return new ResponseEntity<List<String>>(pokedexService.allPokedex(), HttpStatus.OK);
+        try {
+            if (pokedexService.allPokedex().isEmpty())
+                return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.BAD_GATEWAY);
+            else
+                return new ResponseEntity<List<String>>(pokedexService.allPokedex(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
+       
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<List<String>> getPokedex(@PathVariable String id) {
-        return new ResponseEntity<List<String>>(new ArrayList<String>(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -22,13 +22,17 @@ public class AvailablePokemonController {
     @Autowired
     private AvailablePokemonService pokemonService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<String>> getSamplePokemonNoArgs() {
-        return new ResponseEntity<List<String>>(new ArrayList<String>(), HttpStatus.OK);
+        return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/{pokemonGame}")
     public ResponseEntity<List<String>> getSamplePokemon(@PathVariable String pokemonGame) {
-        return new ResponseEntity<List<String>>(pokemonService.availablePokemon(pokemonGame), HttpStatus.OK);
+        try {
+            return new ResponseEntity<List<String>>(pokemonService.availablePokemon(pokemonGame), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
     }
 }

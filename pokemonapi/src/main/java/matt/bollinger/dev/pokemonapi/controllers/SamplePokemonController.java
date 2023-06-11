@@ -24,7 +24,11 @@ public class SamplePokemonController {
 
     @GetMapping
     public ResponseEntity<List<String>> getSamplePokemon() {
-        return new ResponseEntity<List<String>>(pokemonService.sixPokemon(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<List<String>>(pokemonService.sixPokemon(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}")

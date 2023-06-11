@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -17,10 +18,16 @@ public class PokedexService {
     @Autowired
     private WebClient builder;
     
-    public List<String> allPokedex() {
+    public List<String> allPokedex() throws Exception {
 		
-        PokedexList pokedexList = builder.get().uri(url).retrieve().bodyToMono(PokedexList.class).block();
+        PokedexList pokedexList = builder.get().uri(url).retrieve()
+            .onStatus(HttpStatus.NOT_FOUND::equals,
+                response -> response.bodyToMono(String.class).map(Exception::new))
+            .bodyToMono(PokedexList.class).block();
 
+        if (pokedexList.getResults().size() < 32)
+            return new ArrayList<String>();
+        
         List<PokedexEntry> pokedexEntries = getOnlyAppropriateEntries(pokedexList);
         List<String> pokedexNames = getCorrectNames(pokedexEntries);
 
