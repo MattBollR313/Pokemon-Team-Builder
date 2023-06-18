@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class PokemonEntry {
     
     private Integer entry_number;
-    private PokemonSpecies pokemon_species;
+    private SimpleEntry pokemon_species;
 
 }

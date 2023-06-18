@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Language {
+public class AbilityList {
     
-    private String name;
-    private String url;
+    private SimpleEntry ability;
+    private Boolean is_hidden;
+    private Integer slot;
 
 }

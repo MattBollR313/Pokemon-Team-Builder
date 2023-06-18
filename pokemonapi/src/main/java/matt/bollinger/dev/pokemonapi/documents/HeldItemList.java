@@ -2,14 +2,17 @@ package matt.bollinger.dev.pokemonapi.documents;
 
 import lombok.Data;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PokedexEntry {
+public class HeldItemList {
     
-    private String name;
-    private String url;
+    private SimpleEntry item;
+    private List<VersionDetailList> version_details;
+
 }

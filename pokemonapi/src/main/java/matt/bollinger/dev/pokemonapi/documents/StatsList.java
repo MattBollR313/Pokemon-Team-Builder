@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PokedexName {
+public class StatsList {
     
-    private SimpleEntry language;
-    private String name;
+    private Integer base_stat;
+    private Integer effort;
+    private SimpleEntry stat;
 
 }

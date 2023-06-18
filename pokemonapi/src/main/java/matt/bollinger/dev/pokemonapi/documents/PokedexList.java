@@ -14,5 +14,5 @@ public class PokedexList {
     private Integer count;
     private String next;
     private String previous;
-    private List<PokedexEntry> results;
+    private List<SimpleEntry> results;
 }
