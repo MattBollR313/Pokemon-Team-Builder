@@ -17,7 +17,7 @@ public class Pokedex {
     private String name;
     private List<PokedexName> names;
     private List<PokemonEntry> pokemon_entries;
-    private Region region;
-    private List<VersionGroup> version_groups;
+    private SimpleEntry region;
+    private List<SimpleEntry> version_groups;
 
 }

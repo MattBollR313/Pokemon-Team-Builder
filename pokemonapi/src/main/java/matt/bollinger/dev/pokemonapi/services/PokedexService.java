@@ -28,14 +28,14 @@ public class PokedexService {
         if (pokedexList.getResults().size() < 32)
             return new ArrayList<String>();
         
-        List<PokedexEntry> pokedexEntries = getOnlyAppropriateEntries(pokedexList);
+        List<SimpleEntry> pokedexEntries = getOnlyAppropriateEntries(pokedexList);
         List<String> pokedexNames = getCorrectNames(pokedexEntries);
 
         return pokedexNames;
     }
 
-    private List<PokedexEntry> getOnlyAppropriateEntries(PokedexList pokedexList) {
-        List<PokedexEntry> pokedexEntries = pokedexList.getResults();
+    private List<SimpleEntry> getOnlyAppropriateEntries(PokedexList pokedexList) {
+        List<SimpleEntry> pokedexEntries = pokedexList.getResults();
         pokedexEntries.remove(0);
         pokedexEntries.remove(8);
         pokedexEntries.remove(9);
@@ -55,9 +55,9 @@ public class PokedexService {
         return pokedexEntries;
     }
 
-    private List<String> getCorrectNames(List<PokedexEntry> pokedexEntries) {
+    private List<String> getCorrectNames(List<SimpleEntry> pokedexEntries) {
         List<String> pokedexNames = new ArrayList<>();
-        for (PokedexEntry entry: pokedexEntries) {
+        for (SimpleEntry entry: pokedexEntries) {
             pokedexNames.add(entry.getName());
         }
         pokedexNames.set(0, "Kanto (Gen 1/3)");
