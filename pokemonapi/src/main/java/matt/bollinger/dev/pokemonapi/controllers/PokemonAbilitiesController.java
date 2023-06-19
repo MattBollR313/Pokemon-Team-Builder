@@ -28,20 +28,12 @@ public class PokemonAbilitiesController {
     }
 
     @GetMapping("/{pokemon}")
-    public ResponseEntity<List<String>> getPokemonAbilities(@PathVariable String pokemon) {
+    public ResponseEntity<List<List<String>>> getPokemonAbilities(@PathVariable String pokemon) {
         try {
-            return new ResponseEntity<List<String>>(abilitiesService.getPokemonAbilities(pokemon), HttpStatus.OK);
+            return new ResponseEntity<List<List<String>>>(abilitiesService.getPokemonAbilities(pokemon), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<List<List<String>>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
         }
     }
-
-    @GetMapping("/{pokemon}/{ability}")
-    public ResponseEntity<String> getPokemonAbilityDescription(@PathVariable String pokemon, @PathVariable String ability) {
-        try {
-            return new ResponseEntity<String>(abilitiesService.getAbilityDescription(ability), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("", HttpStatus.NOT_FOUND);
-        }
-    }
+    
 }

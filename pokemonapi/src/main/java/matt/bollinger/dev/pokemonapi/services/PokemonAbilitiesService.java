@@ -19,7 +19,7 @@ public class PokemonAbilitiesService {
     @Autowired
     private WebClient builder;
     
-    public List<String> getPokemonAbilities(String pokemonName) throws Exception {
+    public List<List<String>> getPokemonAbilities(String pokemonName) throws Exception {
         String apiUrl = pokemonUrl + pokemonName;
 		
         PokemonInfo pokemon = builder.get().uri(apiUrl).retrieve()
@@ -28,8 +28,13 @@ public class PokemonAbilitiesService {
             .bodyToMono(PokemonInfo.class).block();
 
         List<AbilityList> pokemonAbilities = pokemon.getAbilities();
-        List<String> abilityFormattedNames = new ArrayList<>();
-        for (AbilityList entry: pokemonAbilities) {
+        List<List<String>> abilityFormattedNames = new ArrayList<>(pokemonAbilities.size());
+        for (int i = 0; i < pokemonAbilities.size(); i++) {
+            abilityFormattedNames.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < abilityFormattedNames.size(); i++) {
+            AbilityList entry = pokemonAbilities.get(i);
             String apiAbilityUrl = abilityUrl + entry.getAbility().getName();
 
             AbilityInfo ability = builder.get().uri(apiAbilityUrl).retrieve()
@@ -38,32 +43,20 @@ public class PokemonAbilitiesService {
             .bodyToMono(AbilityInfo.class).block();
 
             List<PokedexName> abilityNames = ability.getNames();
+            List<EffectEntry> abilityEffects = ability.getEffect_entries();
             for (PokedexName name: abilityNames) {
                 if (name.getLanguage().getName().equals("en")) {
-                    abilityFormattedNames.add(name.getName());
+                    abilityFormattedNames.get(i).add(name.getName());
                     break;
                 } 
+            }
+            for (EffectEntry effect: abilityEffects) {
+                if (effect.getLanguage().getName().equals("en"))
+                    abilityFormattedNames.get(i).add(effect.getShort_effect());
             }
         }
 
         return abilityFormattedNames;
-    }
-
-    public String getAbilityDescription(String abilityName) throws Exception {
-        String apiAbilityUrl = abilityUrl + abilityName;
-
-        AbilityInfo ability = builder.get().uri(apiAbilityUrl).retrieve()
-            .onStatus(HttpStatus.NOT_FOUND::equals,
-                response -> response.bodyToMono(String.class).map(Exception::new))
-            .bodyToMono(AbilityInfo.class).block();
-
-        List<EffectEntry> abilityEffects = ability.getEffect_entries();
-        for (EffectEntry effect: abilityEffects) {
-            if (effect.getLanguage().getName().equals("en"))
-                return effect.getShort_effect();
-        }
-
-        return null;
     }
     
 }
