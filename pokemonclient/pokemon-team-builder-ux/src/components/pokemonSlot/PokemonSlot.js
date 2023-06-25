@@ -84,6 +84,20 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     } 
   }
 
+  // Pokemon Evolution Status
+  const [pokemonEvolution, setPokemonEvolution] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
+
+  const getPokemonEvolution = async (pokemonName) => {
+    try {  
+      const evolutionResponse = await api.get(`/api/evolution/${pokemonName}`);
+      console.log(`Evolution Status Returned:`, evolutionResponse.data);
+      setPokemonEvolution(evolutionResponse.data);
+    } 
+    catch (err) {  
+      console.log(err);
+    } 
+  }
+
   // Handle Change of Pokemon Selection
   const handlePokemonChange = (selectedOption) => {
     setPokemonInfo(selectedOption.label);
@@ -92,6 +106,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     getPokemonAbilities(paramName);
     getPokemonTypes(paramName);
     getPokemonStats(paramName);
+    getPokemonEvolution(paramName);
     console.log(`Option selected:`, selectedOption);
   };
 
@@ -116,6 +131,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     setPokemonInfo(null);
     setAbilityDescription(null);
     setPokemonTypes([]);
+    setStatNames([]);
+    setPokemonEvolution([]);
     console.log("Box Cleared");
   };
 
@@ -130,6 +147,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
               { statNames.length !== 0 ? <div>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
               { pokemonInfo !== null ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} /></div> : null }
               { abilityDescription !== null ? <div>{abilityDescription}</div> : null }
+              { pokemonEvolution.length !== 0 ? pokemonEvolution[0] !== false ? <div>Final Evolution</div> : <div>Not Final Evolution</div> : null }
             </Box>
           </Col>
           <Col xs={12} md={3}>
