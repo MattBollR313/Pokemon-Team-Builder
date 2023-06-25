@@ -47,20 +47,6 @@ const Home = () => {
           return "";
     }
   }
- 
-  // Sample Pokemon API Request
-  /*const [pokemon, setPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
-
-  const getPokemon = async () => {
-    try {  
-      const response = await api.get("/api/samplepokemon");
-      console.log(response.data);
-      setPokemon(response.data);
-    } 
-    catch (err) {  
-      console.log(err);
-    }     
-  }*/
 
   // Pokemon Game API Request
   const [pokemonGame, setPokemonGame] = useState([]); // Must have [] as an argument as will get an undefined error otherwise

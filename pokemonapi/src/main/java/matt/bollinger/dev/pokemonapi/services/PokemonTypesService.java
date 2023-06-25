@@ -27,12 +27,7 @@ public class PokemonTypesService {
             .bodyToMono(PokemonInfo.class).block();
 
         List<TypeList> pokemonTypes = pokemon.getTypes();
-        List<String> typeNames = new ArrayList<>();
-        for (TypeList entry: pokemonTypes) {
-            typeNames.add(entry.getType().getName());
-        }
-
-        return typeNames;
+        return getTypeNames(pokemonTypes);
     }
 
     public List<String> getPokemonTypes(String pokemonName, String pokemonGame) throws Exception {
@@ -94,7 +89,8 @@ public class PokemonTypesService {
         List<String> typeNames = new ArrayList<>();
 
         for (TypeList entry: pokemonTypes) {
-            typeNames.add(entry.getType().getName());
+            String typeEntry = entry.getType().getName();
+            typeNames.add(typeEntry.substring(0, 1).toUpperCase() + typeEntry.substring(1));
         }
 
         return typeNames;

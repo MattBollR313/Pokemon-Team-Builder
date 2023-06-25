@@ -55,11 +55,29 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     try {  
       const typesResponse = await api.get(`/api/types/${gameGeneration}/${pokemonName}`);
       console.log(`Types Returned:`, typesResponse.data);
-      const typeCorrectNames = [];
-      for (let i = 0; i < typesResponse.data.length; i++) {
-        typeCorrectNames.push(typesResponse.data[i].charAt(0).toUpperCase() + typesResponse.data[i].slice(1));
-      }
-      setPokemonTypes(typeCorrectNames);
+      setPokemonTypes(typesResponse.data);
+    } 
+    catch (err) {  
+      console.log(err);
+    } 
+  }
+
+  // Pokemon Stat Values
+  const [statNames, setStatNames] = useState([]);
+
+  const getPokemonStats = async (pokemonName) => {
+    try {  
+      const statsResponse = await api.get(`/api/stats/${pokemonName}`);
+      console.log(`Stats Returned:`, statsResponse.data);
+      setStatNames([
+        `HP: ${statsResponse.data[0]}`,
+        `Attack: ${statsResponse.data[1]}`,
+        `Defense: ${statsResponse.data[2]}`,
+        `Sp. Atk: ${statsResponse.data[3]}`,
+        `Sp. Def: ${statsResponse.data[4]}`,
+        `Speed: ${statsResponse.data[5]}`
+      ]);
+      console.log(`Stat Names: `, statNames);
     } 
     catch (err) {  
       console.log(err);
@@ -73,6 +91,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     const paramName = selectedOption.label.charAt(0).toLowerCase() + selectedOption.label.slice(1);
     getPokemonAbilities(paramName);
     getPokemonTypes(paramName);
+    getPokemonStats(paramName);
     console.log(`Option selected:`, selectedOption);
   };
 
@@ -108,6 +127,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
             <Box className="slot-box">
               <h5>{pokemonInfo}</h5>
               { pokemonTypes.length !== 0 ? <div>{pokemonTypes.map(type => <div> {type} </div>)}</div> : null }
+              { statNames.length !== 0 ? <div>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
               { pokemonInfo !== null ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} /></div> : null }
               { abilityDescription !== null ? <div>{abilityDescription}</div> : null }
             </Box>
