@@ -1,0 +1,9 @@
+.slot-container {
+    margin-bottom: 2rem; 
+}
+
+.slot-box {
+    padding: 1rem;
+    min-height: 150px;
+    border: 1px dashed grey;
+}

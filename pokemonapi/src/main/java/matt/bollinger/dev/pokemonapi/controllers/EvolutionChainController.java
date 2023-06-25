@@ -23,12 +23,12 @@ public class EvolutionChainController {
     private EvolutionChainService evolutionChainService;
 
     @GetMapping
-    public ResponseEntity<List<String>> getPokemonAbilitiesNoArgs() {
-        return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<List<Boolean>> getEvolutionStatusNoArgs() {
+        return new ResponseEntity<List<Boolean>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/{pokemon}")
-    public ResponseEntity<List<Boolean>> getPokemonAbilities(@PathVariable String pokemon) {
+    public ResponseEntity<List<Boolean>> getEvolutionStatus(@PathVariable String pokemon) {
         try {
             return new ResponseEntity<List<Boolean>>(evolutionChainService.getEvolutionStatus(pokemon), HttpStatus.OK);
         } catch (Exception e) {

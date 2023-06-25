@@ -49,10 +49,9 @@ const Home = () => {
   }
  
   // Sample Pokemon API Request
-  const [pokemon, setPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
+  /*const [pokemon, setPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getPokemon = async () => {
-
     try {  
       const response = await api.get("/api/samplepokemon");
       console.log(response.data);
@@ -60,15 +59,13 @@ const Home = () => {
     } 
     catch (err) {  
       console.log(err);
-    }
-     
-  }
+    }     
+  }*/
 
   // Pokemon Game API Request
   const [pokemonGame, setPokemonGame] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getPokemonGame = async () => {
-
     try {  
       const pokedexResponse = await api.get("/api/pokedex");
       console.log(pokedexResponse.data);
@@ -76,12 +73,11 @@ const Home = () => {
     } 
     catch (err) {  
       console.log(err);
-    }
-     
+    }    
   }
 
   useEffect(() => {
-    getPokemon();
+    //getPokemon();
     getPokemonGame();
   },[])
 
@@ -89,7 +85,6 @@ const Home = () => {
   const [availPokemon, setAvailPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getAvailPokemon = async (selectedGame) => {
-
     try {  
       const availPokemonResponse = await api.get(`/api/availablepokemon/${selectedGame}`);
       console.log(`Available Pokemon Returned:`, availPokemonResponse.data);
@@ -97,8 +92,7 @@ const Home = () => {
     } 
     catch (err) {  
       console.log(err);
-    }
-     
+    }    
   }
 
   // Pokemon Game Dropdown Functionality
@@ -113,7 +107,7 @@ const Home = () => {
   const [selected, setSelected] = useState(null);
 
   const handleChange = (selectedOption) => {
-    setSelected(selectedOption);
+    setSelected(selectedOption.label);
     getAvailPokemon(modifyGameName(selectedOption.label));
     console.log(`Option selected:`, selectedOption);
   };
@@ -121,43 +115,43 @@ const Home = () => {
   
 
   return (
-    <Container fluid="md" data-testid="home-1">
+    <Container fluid="lg" data-testid="home-1">
       <Row style={{marginTop: '2rem'}}>
-        <Col xs={12} md={6}>
+        <Col xs={12} lg={6}>
           <Col className="mx-auto" md={6}>
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} /></div>
             <div className="d-md-none">&nbsp;</div>
           </Col>
         </Col>
-        <Col xs={12} md={6}>
+        <Col xs={12} lg={6}>
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
             </div>
           }
         </Col>
