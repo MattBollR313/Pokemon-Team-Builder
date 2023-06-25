@@ -92,9 +92,9 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
       const evolutionResponse = await api.get(`/api/evolution/${pokemonName}`);
       console.log(`Evolution Status Returned:`, evolutionResponse.data);
       if (evolutionResponse.data[0] === true)
-        setPokemonEvolution("Final Evolution");
+        setPokemonEvolution("Final Stage");
       else
-        setPokemonEvolution("Not Final Evolution");
+        setPokemonEvolution("Not Final Stage");
     } 
     catch (err) {  
       console.log(err);
@@ -133,6 +133,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
   // Remove Button Functionality
   const handleRemoveClick = () => {
     setPokemonInfo(null);
+    setPokemonAbilities([]);
     setAbilityDescription(null);
     setPokemonTypes([]);
     setStatNames([]);
@@ -148,11 +149,11 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
             <Box className="slot-box">
               <h5>{pokemonInfo}</h5>
               <Row className="pokemon-info">
-                <Col xs={12} md={6}>
+                <Col xs={6}>
                   { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <div> {type} </div>)}</div> : null }
-                  { pokemonEvolution !== null ? <div><h6>Evolution Status:</h6><div>{pokemonEvolution}</div></div> : null }
+                  { pokemonEvolution !== null ? <div className="pokemon-info"><h6>Evolution Status:</h6><div>{pokemonEvolution}</div></div> : null }
                 </Col>
-                <Col xs={12} md={6}>
+                <Col xs={6}>
                   { statNames.length !== 0 ? <div><h6>Base Stats:</h6>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
                 </Col>
               </Row>
