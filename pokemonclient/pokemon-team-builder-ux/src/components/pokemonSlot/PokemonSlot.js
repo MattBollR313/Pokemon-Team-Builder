@@ -85,30 +85,21 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
   }
 
   // Pokemon Evolution Status
-  const [pokemonEvolution, setPokemonEvolution] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
+  const [pokemonEvolution, setPokemonEvolution] = useState(null); // Must have [] as an argument as will get an undefined error otherwise
 
   const getPokemonEvolution = async (pokemonName) => {
     try {  
       const evolutionResponse = await api.get(`/api/evolution/${pokemonName}`);
       console.log(`Evolution Status Returned:`, evolutionResponse.data);
-      setPokemonEvolution(evolutionResponse.data);
+      if (evolutionResponse.data[0] === true)
+        setPokemonEvolution("Final Evolution");
+      else
+        setPokemonEvolution("Not Final Evolution");
     } 
     catch (err) {  
       console.log(err);
     } 
   }
-
-  // Handle Change of Pokemon Selection
-  const handlePokemonChange = (selectedOption) => {
-    setPokemonInfo(selectedOption.label);
-    setAddClick(false);
-    const paramName = selectedOption.label.charAt(0).toLowerCase() + selectedOption.label.slice(1);
-    getPokemonAbilities(paramName);
-    getPokemonTypes(paramName);
-    getPokemonStats(paramName);
-    getPokemonEvolution(paramName);
-    console.log(`Option selected:`, selectedOption);
-  };
 
   // Ability Dropdown Functionality
   const abilityOptions = [];
@@ -126,13 +117,26 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     console.log(`Option selected:`, selectedOption);
   };
 
+  // Handle Change of Pokemon Selection
+  const handlePokemonChange = (selectedOption) => {
+    setPokemonInfo(selectedOption.label);
+    setAddClick(false);
+    const paramName = selectedOption.label.charAt(0).toLowerCase() + selectedOption.label.slice(1);
+    getPokemonAbilities(paramName);
+    setAbilityDescription(null);
+    getPokemonTypes(paramName);
+    getPokemonStats(paramName);
+    getPokemonEvolution(paramName);
+    console.log(`Option selected:`, selectedOption);
+  };
+
   // Remove Button Functionality
   const handleRemoveClick = () => {
     setPokemonInfo(null);
     setAbilityDescription(null);
     setPokemonTypes([]);
     setStatNames([]);
-    setPokemonEvolution([]);
+    setPokemonEvolution(null);
     console.log("Box Cleared");
   };
 
@@ -143,11 +147,17 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           <Col xs={12} md={9}>
             <Box className="slot-box">
               <h5>{pokemonInfo}</h5>
-              { pokemonTypes.length !== 0 ? <div>{pokemonTypes.map(type => <div> {type} </div>)}</div> : null }
-              { statNames.length !== 0 ? <div>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
-              { pokemonInfo !== null ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} /></div> : null }
+              <Row className="pokemon-info">
+                <Col xs={12} md={6}>
+                  { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <div> {type} </div>)}</div> : null }
+                  { pokemonEvolution !== null ? <div><h6>Evolution Status:</h6><div>{pokemonEvolution}</div></div> : null }
+                </Col>
+                <Col xs={12} md={6}>
+                  { statNames.length !== 0 ? <div><h6>Base Stats:</h6>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
+                </Col>
+              </Row>
+              { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} /></div> : null }
               { abilityDescription !== null ? <div>{abilityDescription}</div> : null }
-              { pokemonEvolution.length !== 0 ? pokemonEvolution[0] !== false ? <div>Final Evolution</div> : <div>Not Final Evolution</div> : null }
             </Box>
           </Col>
           <Col xs={12} md={3}>
