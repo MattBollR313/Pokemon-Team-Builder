@@ -51,6 +51,14 @@ public class PokemonTypesControllerTest {
 			.andExpect(MockMvcResultMatchers.status().isBadRequest());
 	}
 
+	@Test
+	public void testBadArgumentRequest() throws Exception {
+		Mockito.when(service.getPokemonTypes("123")).thenThrow(Exception.class);
+
+		mockMvc.perform(MockMvcRequestBuilders.get(endPoint + "/123").contentType("application.json"))
+			.andExpect(MockMvcResultMatchers.status().isNotFound());
+	}
+
     @Test
 	public void testBadFirstArgumentRequest() throws Exception {
         Mockito.when(service.getPokemonTypes("clefairy", "123")).thenThrow(Exception.class);

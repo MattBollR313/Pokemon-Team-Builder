@@ -23,12 +23,12 @@ public class PokemonTypesController {
     private PokemonTypesService typesService;
 
     @GetMapping
-    public ResponseEntity<List<String>> getPokemonStatsNoArgs() {
+    public ResponseEntity<List<String>> getPokemonTypesNoArgs() {
         return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/{pokemon}")
-    public ResponseEntity<List<String>> getPokemonStats(@PathVariable String pokemon) {
+    public ResponseEntity<List<String>> getPokemonTypes(@PathVariable String pokemon) {
         try {
             return new ResponseEntity<List<String>>(typesService.getPokemonTypes(pokemon), HttpStatus.OK);
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class PokemonTypesController {
     }
 
     @GetMapping("/{pokemonGame}/{pokemon}")
-    public ResponseEntity<List<String>> getPokemonStatsTwoArgs(@PathVariable String pokemonGame, @PathVariable String pokemon) {
+    public ResponseEntity<List<String>> getPokemonTypesTwoArgs(@PathVariable String pokemonGame, @PathVariable String pokemon) {
         try {
             return new ResponseEntity<List<String>>(typesService.getPokemonTypes(pokemon, pokemonGame), HttpStatus.OK);
         } catch (Exception e) {
