@@ -167,7 +167,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                 </Col>
               </Row>
               { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} isClearable={true} placeholder={"Select an ability"} /></div> : null }
-              { abilityDescription !== null ? <div>{abilityDescription}</div> : null }
+              { abilityDescription !== null ? <div className="ability-description">{abilityDescription}</div> : null }
             </Box>
           </Col>
           <Col xs={12} md={3}>
