@@ -12,6 +12,10 @@
     margin-bottom: 1rem;
 }
 
+.add-button {
+    margin-top: 15px;
+}
+
 .pokemon-dropdown {
     margin-top: 5px;
 }

@@ -173,8 +173,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           <Col xs={12} md={3}>
             <div className="d-md-none">&nbsp;</div>
             { pokemonInfo !== null ? <Button variant="danger" onClick={handleRemoveClick}>Remove</Button> : <Button variant="danger" disabled>Remove</Button> }
-            <div>&nbsp;</div>
-            <Button variant="success" onClick={handleAddClick}>Add</Button>
+            <Button className="add-button" variant="success" onClick={handleAddClick}>Add</Button>
             { addClick ? <div className="pokemon-dropdown"><Select options={pokemonOptions} onChange={handlePokemonChange} autoFocus={true}/></div> : null }
           </Col>
         </Row>
