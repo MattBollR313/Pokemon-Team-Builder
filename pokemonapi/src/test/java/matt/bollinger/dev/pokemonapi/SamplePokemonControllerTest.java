@@ -9,9 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import matt.bollinger.dev.pokemonapi.controllers.SamplePokemonController;
 import matt.bollinger.dev.pokemonapi.services.SamplePokemonService;
@@ -29,9 +27,8 @@ public class SamplePokemonControllerTest {
 	@Test
 	public void testProperListResponse() throws Exception {
 		String[] pokemonNames = {"Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard"};
-		List<String> correctPokemon = new ArrayList<String>(Arrays.asList(pokemonNames));
 		
-		Mockito.when(service.sixPokemon()).thenReturn(correctPokemon);
+		Mockito.when(service.sixPokemon()).thenReturn(Arrays.asList(pokemonNames));
 		mockMvc.perform(MockMvcRequestBuilders.get(endPoint).contentType("application/json"))
 			.andExpect(MockMvcResultMatchers.status().isOk());
 	}
