@@ -71,10 +71,14 @@ const Home = () => {
   const [availPokemon, setAvailPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
   const getAvailPokemon = async (selectedGame) => {
-    try {  
-      const availPokemonResponse = await api.get(`/api/availablepokemon/${selectedGame}`);
-      console.log(`Available Pokemon Returned:`, availPokemonResponse.data);
-      setAvailPokemon(availPokemonResponse.data);
+    try {
+      if (selectedGame !== null) {
+        const availPokemonResponse = await api.get(`/api/availablepokemon/${selectedGame}`);
+        console.log(`Available Pokemon Returned:`, availPokemonResponse.data);
+        setAvailPokemon(availPokemonResponse.data);
+      } else {
+        setAvailPokemon([]);
+      }
     } 
     catch (err) {  
       console.log(err);
@@ -93,9 +97,14 @@ const Home = () => {
   const [selected, setSelected] = useState(null);
 
   const handleChange = (selectedOption) => {
-    setSelected(selectedOption.label);
-    getAvailPokemon(modifyGameName(selectedOption.label));
-    console.log(`Option selected:`, selectedOption);
+    if (selectedOption !== null) {
+      setSelected(selectedOption.label);
+      getAvailPokemon(modifyGameName(selectedOption.label));
+      console.log(`Option selected:`, selectedOption);
+    } else {
+      setSelected(null);
+      getAvailPokemon(null);
+    }
   };
 
   
@@ -105,8 +114,8 @@ const Home = () => {
       <Row style={{marginTop: '2rem'}}>
         <Col xs={12} lg={6}>
           <Col className="mx-auto" md={6}>
-            <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} /></div>
-            <div className="d-md-none">&nbsp;</div>
+            <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
+            <div className="d-lg-none">&nbsp;</div>
           </Col>
         </Col>
         <Col xs={12} lg={6}>

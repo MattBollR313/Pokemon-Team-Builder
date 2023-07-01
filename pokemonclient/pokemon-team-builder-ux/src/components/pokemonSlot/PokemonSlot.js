@@ -113,8 +113,12 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
   const [abilityDescription, setAbilityDescription] = useState(null);
 
   const handleAbilityChange = (selectedOption) => {
-    setAbilityDescription(pokemonAbilities[selectedOption.value][1]);
-    console.log(`Option selected:`, selectedOption);
+    if (selectedOption !== null) {
+      setAbilityDescription(pokemonAbilities[selectedOption.value][1]);
+      console.log(`Option selected:`, selectedOption);
+    } else {
+      setAbilityDescription(null);
+    }
   };
 
   // Handle Change of Pokemon Selection
@@ -141,6 +145,10 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     console.log("Box Cleared");
   };
 
+  useEffect(() => {
+    handleRemoveClick();
+  },[gameGeneration])
+
   return (
     <div>
       <Container fluid className="slot-container">
@@ -148,6 +156,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           <Col xs={12} md={9}>
             <Box className="slot-box">
               <h5>{pokemonInfo}</h5>
+              {pokemonInfo !== null ? <hr/> : null }
               <Row className="pokemon-info">
                 <Col xs={6}>
                   { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <div> {type} </div>)}</div> : null }
@@ -157,15 +166,16 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                   { statNames.length !== 0 ? <div><h6>Base Stats:</h6>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
                 </Col>
               </Row>
-              { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} /></div> : null }
+              { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} isClearable={true} placeholder={"Select an ability"} /></div> : null }
               { abilityDescription !== null ? <div>{abilityDescription}</div> : null }
             </Box>
           </Col>
           <Col xs={12} md={3}>
-            <Button variant="danger" onClick={handleRemoveClick}>Remove</Button>
+            <div className="d-md-none">&nbsp;</div>
+            { pokemonInfo !== null ? <Button variant="danger" onClick={handleRemoveClick}>Remove</Button> : <Button variant="danger" disabled>Remove</Button> }
             <div>&nbsp;</div>
             <Button variant="success" onClick={handleAddClick}>Add</Button>
-            { addClick ? <div><Select options={pokemonOptions} onChange={handlePokemonChange} autoFocus={true} /></div> : null }
+            { addClick ? <div className="pokemon-dropdown"><Select options={pokemonOptions} onChange={handlePokemonChange} autoFocus={true}/></div> : null }
           </Col>
         </Row>
       </Container>
