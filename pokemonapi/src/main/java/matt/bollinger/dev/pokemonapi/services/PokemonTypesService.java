@@ -43,6 +43,8 @@ public class PokemonTypesService {
 
         if (pastTypes != null && pastTypes.size() != 0) {
             Integer pokemonGameGeneration = getGeneration(pokemonGame);
+            if (pokemonGameGeneration.equals(null))
+                throw new Exception();
             PastTypeList pastType = pastTypes.get(pastTypes.size() - 1);
             String generationUrl = pastType.getGeneration().getUrl();
             if (Character.getNumericValue(generationUrl.charAt(generationUrl.length() - 2)) >= pokemonGameGeneration) {
