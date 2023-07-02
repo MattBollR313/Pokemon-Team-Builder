@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class PokedexDescription {
     
     private String description;
-    private Language language;
+    private SimpleEntry language;
 
 }

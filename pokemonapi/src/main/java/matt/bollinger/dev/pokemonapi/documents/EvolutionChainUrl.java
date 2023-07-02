@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PokedexName {
+public class EvolutionChainUrl {
     
-    private SimpleEntry language;
-    private String name;
+    private String url;
 
 }

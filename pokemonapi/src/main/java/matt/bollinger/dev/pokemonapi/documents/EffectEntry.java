@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VersionGroup {
+public class EffectEntry {
     
-    private String name;
-    private String url;
+    private String effect;
+    private SimpleEntry language;
+    private String short_effect;
 
 }

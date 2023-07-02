@@ -1,0 +1,30 @@
+.slot-container {
+    margin-bottom: 2rem; 
+}
+
+.slot-box {
+    padding: 1rem;
+    min-height: 150px;
+    border: 1px dashed grey;
+    border-radius: 5px;
+}
+
+.pokemon-info {
+    margin-bottom: 1rem;
+}
+
+.add-button {
+    margin-top: 15px;
+}
+
+.pokemon-dropdown {
+    margin-top: 5px;
+}
+
+.type-icon {
+    height: 20px;
+}
+
+.ability-description {
+    margin-top: 10px;
+}

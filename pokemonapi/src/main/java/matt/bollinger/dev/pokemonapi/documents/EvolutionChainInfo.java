@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PokedexName {
+public class EvolutionChainInfo {
     
-    private SimpleEntry language;
-    private String name;
+    private Object baby_trigger_item;
+    private ChainInfo chain;
+    private Integer id;
 
 }
