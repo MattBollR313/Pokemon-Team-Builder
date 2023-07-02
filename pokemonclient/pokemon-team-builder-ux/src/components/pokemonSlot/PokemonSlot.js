@@ -7,7 +7,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import api from '../../api/axiosConfig';
 import './PokemonSlot.css';
 
-
 const PokemonSlot = ({availablePokemon, gameGeneration}) => {
 
   const [pokemonInfo, setPokemonInfo] = useState(null);
@@ -55,7 +54,16 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     try {  
       const typesResponse = await api.get(`/api/types/${gameGeneration}/${pokemonName}`);
       console.log(`Types Returned:`, typesResponse.data);
-      setPokemonTypes(typesResponse.data);
+      if (typesResponse.data.length === 1) {
+        setPokemonTypes([
+          `images/${typesResponse.data[0]}.png`
+        ]);
+      } else {
+        setPokemonTypes([
+          `images/${typesResponse.data[0]}.png`,
+          `images/${typesResponse.data[1]}.png`
+        ]);
+      }
     } 
     catch (err) {  
       console.log(err);
@@ -159,7 +167,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
               {pokemonInfo !== null ? <hr/> : null }
               <Row className="pokemon-info">
                 <Col xs={6}>
-                  { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <div> {type} </div>)}</div> : null }
+                  { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <img className="type-icon" src={type} alt="Type" />)}</div> : null }
                   { pokemonEvolution !== null ? <div className="pokemon-info"><h6>Evolution Status:</h6><div>{pokemonEvolution}</div></div> : null }
                 </Col>
                 <Col xs={6}>
@@ -172,7 +180,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           </Col>
           <Col xs={12} md={3}>
             <div className="d-md-none">&nbsp;</div>
-            { pokemonInfo !== null ? <Button variant="danger" onClick={handleRemoveClick}>Remove</Button> : <Button variant="danger" disabled>Remove</Button> }
+            { pokemonInfo !== null ? <div><Button variant="danger" onClick={handleRemoveClick}>Remove</Button></div> : <div><Button variant="danger" disabled>Remove</Button></div> }
             <Button className="add-button" variant="success" onClick={handleAddClick}>Add</Button>
             { addClick ? <div className="pokemon-dropdown"><Select options={pokemonOptions} onChange={handlePokemonChange} autoFocus={true}/></div> : null }
           </Col>
