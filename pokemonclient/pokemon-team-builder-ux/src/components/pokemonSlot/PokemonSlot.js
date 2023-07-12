@@ -129,6 +129,54 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     }
   };
 
+  // Move Values and Dropdown Functionality
+  const [moveNames, setMoveNames] = useState([]);
+  const getMoves = async (pokemonName) => {
+    try {  
+      const movesResponse = await api.get(`/api/moves/${pokemonName}`);
+      console.log(`Moves Returned:`, movesResponse.data);
+      setMoveNames(movesResponse.data)
+    } 
+    catch (err) {  
+      console.log(err);
+    } 
+  }
+
+  const moveOptions = [];
+  for (let i = 0; i < moveNames.length; i++) {
+    moveOptions.push({
+      value: i.toString(),
+      label: moveNames[i][1]
+    })
+  }
+
+  const [moveDetails, setMoveDetails] = useState([]);
+  const getMoveDetails = async (moveName) => {
+    try {  
+      const moveDetailsResponse = await api.get(`/api/moves/${moveName}/${gameGeneration}`);
+      console.log(`Move Details Returned:`, moveDetailsResponse.data);
+      setMoveDetails([
+        moveDetailsResponse.data[0],
+        `images/${moveDetailsResponse.data[1]}.png`,
+        moveDetailsResponse.data[2],
+        moveDetailsResponse.data[3],
+        moveDetailsResponse.data[4]
+      ])
+    } 
+    catch (err) {  
+      console.log(err);
+    } 
+  }
+
+  const handleMoveChange = (selectedOption) => {
+    if (selectedOption !== null) {
+      getMoveDetails(moveNames[selectedOption.value][0]);
+      console.log(`Option selected:`, selectedOption);
+    } else {
+      setMoveDetails([]);
+    }
+  };
+
   // Handle Change of Pokemon Selection
   const handlePokemonChange = (selectedOption) => {
     setPokemonInfo(selectedOption.label);
@@ -136,6 +184,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     const paramName = selectedOption.label.charAt(0).toLowerCase() + selectedOption.label.slice(1);
     getPokemonAbilities(paramName);
     setAbilityDescription(null);
+    getMoves(paramName);
+    setMoveDetails([]);
     getPokemonTypes(paramName);
     getPokemonStats(paramName);
     getPokemonEvolution(paramName);
@@ -147,6 +197,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     setPokemonInfo(null);
     setPokemonAbilities([]);
     setAbilityDescription(null);
+    setMoveNames([]);
+    setMoveDetails([]);
     setPokemonTypes([]);
     setStatNames([]);
     setPokemonEvolution(null);
@@ -176,6 +228,13 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
               </Row>
               { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} isClearable={true} placeholder={"Select an ability"} /></div> : null }
               { abilityDescription !== null ? <div className="ability-description">{abilityDescription}</div> : null }
+              
+              { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={handleMoveChange} autoFocus={true} isClearable={true} placeholder={"Select a move"} /></div> : null }
+              { moveDetails.length !== 0 && moveDetails[0] !== null ? <div className="move-description">Description: {moveDetails[0]}</div> : null }
+              { moveDetails.length !== 0 && moveDetails[1] !== null ? <div className="move-type">Type: <img className="type-icon" src={moveDetails[1]} alt="Move Type" /></div> : null }
+              { moveDetails.length !== 0 && moveDetails[2] !== null ? <div className="move-power">Power: {moveDetails[2]}</div> : null }
+              { moveDetails.length !== 0 && moveDetails[3] !== null ? <div className="move-pp">PP: {moveDetails[3]}</div> : null }
+              { moveDetails.length !== 0 && moveDetails[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails[4]}</div> : null }
             </Box>
           </Col>
           <Col xs={12} md={3}>
