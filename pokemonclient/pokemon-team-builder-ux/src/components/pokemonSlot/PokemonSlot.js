@@ -177,6 +177,48 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     }
   };
 
+  // Held Item Values and Dropdown Functionality
+  const [heldItemNames, setHeldItemNames] = useState([]);
+  const getHeldItemNames = async () => {
+    try {  
+      const heldItemsResponse = await api.get(`/api/helditem`);
+      console.log(`Held Item Names Returned:`, heldItemsResponse.data);
+      setHeldItemNames(heldItemsResponse.data)
+    } 
+    catch (err) {  
+      console.log(err);
+    } 
+  } 
+
+  const heldItemOptions = [];
+  for (let i = 0; i < heldItemNames.length; i++) {
+    heldItemOptions.push({
+      value: i.toString(),
+      label: heldItemNames[i][1]
+    })
+  }
+
+  const [heldItemDescription, setHeldItemDescription] = useState(null);
+  const getHeldItemDescription = async (heldItemName) => {
+    try {  
+      const heldItemDescriptionResponse = await api.get(`/api/helditem/${heldItemName}`);
+      console.log(`Held Item Description Returned:`, heldItemDescriptionResponse.data);
+      setHeldItemDescription(heldItemDescriptionResponse.data);
+    } 
+    catch (err) {  
+      console.log(err);
+    } 
+  }
+
+  const handleHeldItemChange = (selectedOption) => {
+    if (selectedOption !== null) {
+      getHeldItemDescription(heldItemNames[selectedOption.value][0]);
+      console.log(`Option selected:`, selectedOption);
+    } else {
+      setHeldItemDescription(null);
+    }
+  };
+
   // Handle Change of Pokemon Selection
   const handlePokemonChange = (selectedOption) => {
     setPokemonInfo(selectedOption.label);
@@ -186,6 +228,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     setAbilityDescription(null);
     getMoves(paramName);
     setMoveDetails([]);
+    getHeldItemNames();
     getPokemonTypes(paramName);
     getPokemonStats(paramName);
     getPokemonEvolution(paramName);
@@ -199,6 +242,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     setAbilityDescription(null);
     setMoveNames([]);
     setMoveDetails([]);
+    setHeldItemNames([]);
+    setHeldItemDescription(null);
     setPokemonTypes([]);
     setStatNames([]);
     setPokemonEvolution(null);
@@ -235,6 +280,9 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
               { moveDetails.length !== 0 && moveDetails[2] !== null ? <div className="move-power">Power: {moveDetails[2]}</div> : null }
               { moveDetails.length !== 0 && moveDetails[3] !== null ? <div className="move-pp">PP: {moveDetails[3]}</div> : null }
               { moveDetails.length !== 0 && moveDetails[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails[4]}</div> : null }
+
+              { heldItemNames.length !== 0 ? <div><Select options={heldItemOptions} onChange={handleHeldItemChange} autoFocus={true} isClearable={true} placeholder={"Select an item"} /></div> : null }
+              { heldItemDescription !== null ? <div className="held-item-description">{heldItemDescription}</div> : null }
             </Box>
           </Col>
           <Col xs={12} md={3}>
