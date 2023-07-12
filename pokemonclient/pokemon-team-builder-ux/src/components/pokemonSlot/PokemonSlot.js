@@ -6,6 +6,8 @@ import { Button } from 'react-bootstrap';
 import { Container, Row, Col } from "react-bootstrap";
 import api from '../../api/axiosConfig';
 import './PokemonSlot.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 const PokemonSlot = ({availablePokemon, gameGeneration}) => {
 
@@ -260,29 +262,41 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
         <Row className="align-items-center" >
           <Col xs={12} md={9}>
             <Box className="slot-box">
-              <h5>{pokemonInfo}</h5>
-              {pokemonInfo !== null ? <hr/> : null }
-              <Row className="pokemon-info">
-                <Col xs={6}>
-                  { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <img className="type-icon" src={type} alt="Type" />)}</div> : null }
-                  { pokemonEvolution !== null ? <div className="pokemon-info"><h6>Evolution Status:</h6><div>{pokemonEvolution}</div></div> : null }
-                </Col>
-                <Col xs={6}>
-                  { statNames.length !== 0 ? <div><h6>Base Stats:</h6>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
-                </Col>
-              </Row>
-              { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} isClearable={true} placeholder={"Select an ability"} /></div> : null }
-              { abilityDescription !== null ? <div className="ability-description">{abilityDescription}</div> : null }
-              
-              { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={handleMoveChange} autoFocus={true} isClearable={true} placeholder={"Select a move"} /></div> : null }
-              { moveDetails.length !== 0 && moveDetails[0] !== null ? <div className="move-description">Description: {moveDetails[0]}</div> : null }
-              { moveDetails.length !== 0 && moveDetails[1] !== null ? <div className="move-type">Type: <img className="type-icon" src={moveDetails[1]} alt="Move Type" /></div> : null }
-              { moveDetails.length !== 0 && moveDetails[2] !== null ? <div className="move-power">Power: {moveDetails[2]}</div> : null }
-              { moveDetails.length !== 0 && moveDetails[3] !== null ? <div className="move-pp">PP: {moveDetails[3]}</div> : null }
-              { moveDetails.length !== 0 && moveDetails[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails[4]}</div> : null }
-
-              { heldItemNames.length !== 0 ? <div><Select options={heldItemOptions} onChange={handleHeldItemChange} autoFocus={true} isClearable={true} placeholder={"Select an item"} /></div> : null }
-              { heldItemDescription !== null ? <div className="held-item-description">{heldItemDescription}</div> : null }
+              <Carousel className="slot-carousel" showIndicators={false} showThumbs={false} showStatus={false}>
+                <div>
+                  <h5>{pokemonInfo}</h5>
+                  {pokemonInfo !== null ? <hr/> : null }
+                  { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} isClearable={true} placeholder={"Select an ability"} /></div> : null }
+                  { abilityDescription !== null ? <div className="ability-description">{abilityDescription}</div> : null }
+                  <div>&nbsp;</div>
+                  <Row className="pokemon-info">
+                    <Col xs={6}>
+                      { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <img className="type-icon" src={type} alt="Type" />)}</div> : null }
+                      { pokemonEvolution !== null ? <div className="pokemon-info"><h6>Evolution Status:</h6><div>{pokemonEvolution}</div></div> : null }
+                    </Col>
+                    <Col xs={6}>
+                      { statNames.length !== 0 ? <div><h6>Base Stats:</h6>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
+                    </Col>
+                  </Row>
+                </div>
+                <div>
+                  { heldItemNames.length !== 0 ? <div><Select className="pokemon-info-dropdown" options={heldItemOptions} onChange={handleHeldItemChange} autoFocus={true} isClearable={true} placeholder={"Select an item"} /></div> : null }
+                  { heldItemDescription !== null ? <div className="held-item-description">{heldItemDescription}</div> : null }
+                  <div>&nbsp;</div>
+                  { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={handleMoveChange} autoFocus={true} isClearable={true} placeholder={"Select a move"} /></div> : null }
+                  { moveDetails.length !== 0 && moveDetails[0] !== null ? <div className="move-description">Description: {moveDetails[0]}</div> : null }
+                  <Row>
+                    <Col xs={6}>
+                      { moveDetails.length !== 0 && moveDetails[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails[1]} alt="Move Type" /></div> : null }
+                      { moveDetails.length !== 0 && moveDetails[3] !== null ? <div className="move-pp">PP: {moveDetails[3]}</div> : null }
+                    </Col>
+                    <Col xs={6}>
+                      { moveDetails.length !== 0 && moveDetails[2] !== null ? <div className="move-power">Power: {moveDetails[2]}</div> : null }
+                      { moveDetails.length !== 0 && moveDetails[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails[4]}</div> : null }
+                    </Col>
+                  </Row>
+                </div>
+              </Carousel>
             </Box>
           </Col>
           <Col xs={12} md={3}>

@@ -9,8 +9,16 @@
     border-radius: 5px;
 }
 
+.slot-carousel {
+    position: static;
+}
+
 .pokemon-info {
     margin-bottom: 1rem;
+}
+
+.pokemon-info-dropdown {
+    position: absolute;
 }
 
 .add-button {
@@ -22,7 +30,7 @@
 }
 
 .type-icon {
-    height: 20px;
+    max-width: 60%;
 }
 
 .ability-description {
