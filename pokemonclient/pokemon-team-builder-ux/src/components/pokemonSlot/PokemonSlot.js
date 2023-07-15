@@ -153,29 +153,64 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
   }
 
   const [moveDetails, setMoveDetails] = useState([]);
-  const getMoveDetails = async (moveName) => {
+  const [moveDetails2, setMoveDetails2] = useState([]);
+  const [moveDetails3, setMoveDetails3] = useState([]);
+  const [moveDetails4, setMoveDetails4] = useState([]);
+  const getMoveDetails = async (moveName, dropdownNum) => {
     try {  
       const moveDetailsResponse = await api.get(`/api/moves/${moveName}/${gameGeneration}`);
       console.log(`Move Details Returned:`, moveDetailsResponse.data);
-      setMoveDetails([
-        moveDetailsResponse.data[0],
-        `images/${moveDetailsResponse.data[1]}.png`,
-        moveDetailsResponse.data[2],
-        moveDetailsResponse.data[3],
-        moveDetailsResponse.data[4]
-      ])
+      if (dropdownNum === 1)
+        setMoveDetails([
+          moveDetailsResponse.data[0],
+          `images/${moveDetailsResponse.data[1]}.png`,
+          moveDetailsResponse.data[2],
+          moveDetailsResponse.data[3],
+          moveDetailsResponse.data[4]
+        ]);
+      else if (dropdownNum === 2)
+        setMoveDetails2([
+          moveDetailsResponse.data[0],
+          `images/${moveDetailsResponse.data[1]}.png`,
+          moveDetailsResponse.data[2],
+          moveDetailsResponse.data[3],
+          moveDetailsResponse.data[4]
+        ]);
+      else if (dropdownNum === 3)
+        setMoveDetails3([
+          moveDetailsResponse.data[0],
+          `images/${moveDetailsResponse.data[1]}.png`,
+          moveDetailsResponse.data[2],
+          moveDetailsResponse.data[3],
+          moveDetailsResponse.data[4]
+        ]);
+      else
+        setMoveDetails4([
+          moveDetailsResponse.data[0],
+          `images/${moveDetailsResponse.data[1]}.png`,
+          moveDetailsResponse.data[2],
+          moveDetailsResponse.data[3],
+          moveDetailsResponse.data[4]
+        ]);
     } 
     catch (err) {  
       console.log(err);
     } 
   }
 
-  const handleMoveChange = (selectedOption) => {
+  const handleMoveChange = (selectedOption, dropdownNum) => {
     if (selectedOption !== null) {
-      getMoveDetails(moveNames[selectedOption.value][0]);
+      getMoveDetails(moveNames[selectedOption.value][0], dropdownNum);
       console.log(`Option selected:`, selectedOption);
     } else {
-      setMoveDetails([]);
+      if (dropdownNum === 1)
+        setMoveDetails([]);
+      else if (dropdownNum === 2)
+        setMoveDetails2([]);
+      else if (dropdownNum === 3)
+        setMoveDetails3([]);
+      else
+        setMoveDetails4([]);
     }
   };
 
@@ -230,6 +265,9 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     setAbilityDescription(null);
     getMoves(paramName);
     setMoveDetails([]);
+    setMoveDetails2([]);
+    setMoveDetails3([]);
+    setMoveDetails4([]);
     getHeldItemNames();
     getPokemonTypes(paramName);
     getPokemonStats(paramName);
@@ -244,6 +282,9 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     setAbilityDescription(null);
     setMoveNames([]);
     setMoveDetails([]);
+    setMoveDetails2([]);
+    setMoveDetails3([]);
+    setMoveDetails4([]);
     setHeldItemNames([]);
     setHeldItemDescription(null);
     setPokemonTypes([]);
@@ -262,13 +303,13 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
         <Row className="align-items-center" >
           <Col xs={12} md={9}>
             <Box className="slot-box">
-              <Carousel className="slot-carousel" showIndicators={false} showThumbs={false} showStatus={false}>
-                <div>
+              { pokemonInfo !== null ? 
+              <Carousel className="slot-carousel" showIndicators={false} showThumbs={false} showStatus={false} >
+                <div className="slot-carousel-tab">
                   <h5>{pokemonInfo}</h5>
                   {pokemonInfo !== null ? <hr/> : null }
-                  { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} isClearable={true} placeholder={"Select an ability"} /></div> : null }
-                  { abilityDescription !== null ? <div className="ability-description">{abilityDescription}</div> : null }
-                  <div>&nbsp;</div>
+                  { pokemonAbilities.length !== 0 ? <div><Select options={abilityOptions} onChange={handleAbilityChange} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select an ability"} /></div> : null }
+                  { abilityDescription !== null ? <div className="ability-description">{abilityDescription}</div> : <div className="info-description"></div> }
                   <Row className="pokemon-info">
                     <Col xs={6}>
                       { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <img className="type-icon" src={type} alt="Type" />)}</div> : null }
@@ -278,14 +319,15 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                       { statNames.length !== 0 ? <div><h6>Base Stats:</h6>{statNames.map(stat => <div> {stat} </div>)}</div> : null }
                     </Col>
                   </Row>
+                  { heldItemNames.length !== 0 ? <div><Select options={heldItemOptions} onChange={handleHeldItemChange} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select an item"} /></div> : null }
+                  { heldItemDescription !== null ? <div className="info-description">{heldItemDescription}</div> : null }
                 </div>
-                <div>
-                  { heldItemNames.length !== 0 ? <div><Select className="pokemon-info-dropdown" options={heldItemOptions} onChange={handleHeldItemChange} autoFocus={true} isClearable={true} placeholder={"Select an item"} /></div> : null }
-                  { heldItemDescription !== null ? <div className="held-item-description">{heldItemDescription}</div> : null }
-                  <div>&nbsp;</div>
-                  { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={handleMoveChange} autoFocus={true} isClearable={true} placeholder={"Select a move"} /></div> : null }
-                  { moveDetails.length !== 0 && moveDetails[0] !== null ? <div className="move-description">Description: {moveDetails[0]}</div> : null }
-                  <Row>
+                <div className="slot-carousel-tab">
+                  {pokemonInfo !== null ? <h5>{pokemonInfo} Moveset (1/2)</h5> : null}
+                  {pokemonInfo !== null ? <hr/> : null }
+                  { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={(e) => handleMoveChange(e, 1)} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select Move 1"} /></div> : null }
+                  <Row className="move-details">
+                    { moveDetails.length !== 0 && moveDetails[0] !== null ? <div className="move-description">Description: {moveDetails[0]}</div> : null }
                     <Col xs={6}>
                       { moveDetails.length !== 0 && moveDetails[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails[1]} alt="Move Type" /></div> : null }
                       { moveDetails.length !== 0 && moveDetails[3] !== null ? <div className="move-pp">PP: {moveDetails[3]}</div> : null }
@@ -295,8 +337,49 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                       { moveDetails.length !== 0 && moveDetails[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails[4]}</div> : null }
                     </Col>
                   </Row>
+                  { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={(e) => handleMoveChange(e, 2)} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select Move 2"} /></div> : null }
+                  <Row className="move-details">
+                    { moveDetails2.length !== 0 && moveDetails2[0] !== null ? <div className="move-description">Description: {moveDetails2[0]}</div> : null }
+                    <Col xs={6}>
+                      { moveDetails2.length !== 0 && moveDetails2[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails2[1]} alt="Move Type" /></div> : null }
+                      { moveDetails2.length !== 0 && moveDetails2[3] !== null ? <div className="move-pp">PP: {moveDetails2[3]}</div> : null }
+                    </Col>
+                    <Col xs={6}>
+                      { moveDetails2.length !== 0 && moveDetails2[2] !== null ? <div className="move-power">Power: {moveDetails2[2]}</div> : null }
+                      { moveDetails2.length !== 0 && moveDetails2[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails2[4]}</div> : null }
+                    </Col>
+                  </Row>
+                </div>
+                <div className="slot-carousel-tab">
+                {pokemonInfo !== null ? <h5>{pokemonInfo} Moveset (2/2)</h5> : null}
+                  {pokemonInfo !== null ? <hr/> : null }
+                  { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={(e) => handleMoveChange(e, 3)} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select Move 3"} /></div> : null }
+                  <Row className="move-details">
+                    { moveDetails3.length !== 0 && moveDetails3[0] !== null ? <div className="move-description">Description: {moveDetails3[0]}</div> : null }
+                    <Col xs={6}>
+                      { moveDetails3.length !== 0 && moveDetails3[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails3[1]} alt="Move Type" /></div> : null }
+                      { moveDetails3.length !== 0 && moveDetails3[3] !== null ? <div className="move-pp">PP: {moveDetails3[3]}</div> : null }
+                    </Col>
+                    <Col xs={6}>
+                      { moveDetails3.length !== 0 && moveDetails3[2] !== null ? <div className="move-power">Power: {moveDetails3[2]}</div> : null }
+                      { moveDetails3.length !== 0 && moveDetails3[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails3[4]}</div> : null }
+                    </Col>
+                  </Row>
+                  { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={(e) => handleMoveChange(e, 4)} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select Move 4"} /></div> : null }
+                  <Row className="move-details">
+                    { moveDetails4.length !== 0 && moveDetails4[0] !== null ? <div className="move-description">Description: {moveDetails4[0]}</div> : null }
+                    <Col xs={6}>
+                      { moveDetails4.length !== 0 && moveDetails4[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails4[1]} alt="Move Type" /></div> : null }
+                      { moveDetails4.length !== 0 && moveDetails4[3] !== null ? <div className="move-pp">PP: {moveDetails4[3]}</div> : null }
+                    </Col>
+                    <Col xs={6}>
+                      { moveDetails4.length !== 0 && moveDetails4[2] !== null ? <div className="move-power">Power: {moveDetails4[2]}</div> : null }
+                      { moveDetails4.length !== 0 && moveDetails4[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails4[4]}</div> : null }
+                    </Col>
+                  </Row>
                 </div>
               </Carousel>
+              : null }
             </Box>
           </Col>
           <Col xs={12} md={3}>
