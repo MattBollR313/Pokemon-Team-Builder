@@ -5,6 +5,7 @@ import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from "react-bootstrap";
 import PokemonSlot from '../pokemonSlot/PokemonSlot';
+import TypeCoverageTable from '../typeCoverageTable/TypeCoverageTable';
 import pokemonIcon from '../../images/pokeball.png';
 import './Home.css';
 
@@ -115,12 +116,12 @@ const Home = () => {
     <Container fluid="lg" data-testid="home-1">
       <Row style={{marginTop: '2rem'}}>
         <Col xs={12} lg={6}>
-          <h4><img className="home-icon" src={pokemonIcon} alt="Pokemon Icon" /> Pokemon Team Builder</h4>
-          <div>&nbsp;</div>
+          <h4 className="home-title"><img className="home-icon" src={pokemonIcon} alt="Pokemon Icon" /> Pokemon Team Builder</h4>
           <Col className="mx-auto" md={6}>
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
             <div className="d-lg-none">&nbsp;</div>
           </Col>
+          <div className="type-coverage-table">{<TypeCoverageTable pokemon1="Empoleon" pokemon2="Roserade" pokemon3="Garchomp" pokemon4="Houndoom" pokemon5="Starapter" pokemon6="Luxray" />}</div>
         </Col>
         <Col xs={12} lg={6}>
           {
