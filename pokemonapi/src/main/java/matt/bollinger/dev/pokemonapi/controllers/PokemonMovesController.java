@@ -39,7 +39,7 @@ public class PokemonMovesController {
     @GetMapping("/{move}/{pokemonGame}")
     public ResponseEntity<List<String>> getPokemonMovesTwoArgs(@PathVariable String move, @PathVariable String pokemonGame) {
         try {
-            return new ResponseEntity<List<String>>(movesService.getPokemonMoves(move, pokemonGame), HttpStatus.OK);
+            return new ResponseEntity<List<String>>(movesService.getPokemonMoveInfo(move, pokemonGame), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<List<String>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
         }

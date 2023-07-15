@@ -31,7 +31,7 @@ public class PokemonMovesService {
         return getMoveNames(pokemonMoves);
     }
 
-    public List<String> getPokemonMoves(String moveName, String pokemonGame) throws Exception {
+    public List<String> getPokemonMoveInfo(String moveName, String pokemonGame) throws Exception {
         String apiUrl = moveUrl + moveName;
 		
         MoveListDetails move = builder.get().uri(apiUrl).retrieve()
@@ -40,28 +40,34 @@ public class PokemonMovesService {
             .bodyToMono(MoveListDetails.class).block();
 
         String description = move.getEffect_entries().get(0).getShort_effect();
-        if (description.contains("$")) {
-            description = description.substring(0, description.indexOf("$")) + description.substring(description.indexOf("%") + 1);
-        }
         String type = move.getType().getName().substring(0, 1).toUpperCase() + move.getType().getName().substring(1);
         String power = move.getPower() != null ? move.getPower().toString() : null;
         String pp = move.getPp() != null ? move.getPp().toString() : null;
         String accuracy = move.getAccuracy() != null ? move.getAccuracy().toString() : null;
 
-        /*if (pastTypes != null && pastTypes.size() != 0) {
-            Integer pokemonGameGeneration = getGeneration(pokemonGame);
-            if (pokemonGameGeneration.equals(null))
-                throw new Exception();
-            PastTypeList pastType = pastTypes.get(pastTypes.size() - 1);
-            String generationUrl = pastType.getGeneration().getUrl();
-            if (Character.getNumericValue(generationUrl.charAt(generationUrl.length() - 2)) >= pokemonGameGeneration) {
-                pokemonTypes = pastType.getTypes();
-                //return getTypeNames(pokemonTypes);
-                return new ArrayList<>();
-            }
-        }*/
+        if (move.getPast_values().size() != 0) {
+            MovePastValue pastVal = move.getPast_values().get(0);
 
-        //return getTypeNames(pokemonTypes);
+            Integer chosenGen = getGeneration(pokemonGame);
+            Integer oldGen = getOldGeneration(pastVal.getVersion_group().getName());
+
+            if (chosenGen < oldGen) {
+                if (pastVal.getAccuracy() != null)
+                    accuracy = pastVal.getAccuracy().toString();
+                if (pastVal.getEffect_entries().size() != 0)
+                    description = pastVal.getEffect_entries().get(0).getShort_effect();
+                if (pastVal.getPower() != null)
+                    power = pastVal.getPower().toString();
+                if (pastVal.getPp() != null)
+                    pp = pastVal.getPp().toString();
+                if (pastVal.getType() != null)
+                    type = pastVal.getType().getName().substring(0, 1).toUpperCase() + pastVal.getType().getName().substring(1);
+            }
+        }
+
+        if (description.contains("$")) {
+            description = description.substring(0, description.indexOf("$")) + description.substring(description.indexOf("%") + 1);
+        }
         List<String> moveDetails = new ArrayList<>();
         moveDetails.add(description);
         moveDetails.add(type);
@@ -71,7 +77,7 @@ public class PokemonMovesService {
         return moveDetails;
     }
 
-    private Integer getGeneration(String pokemonGame) {
+    private Integer getGeneration(String pokemonGame) throws Exception {
         switch (pokemonGame) {
             case "kanto":
             case "hoenn":
@@ -98,7 +104,40 @@ public class PokemonMovesService {
             case "paldea":
                 return 9;
             default:
-                return null;
+                throw new Exception();
+        }
+    }
+
+    private Integer getOldGeneration(String pokemonGame) throws Exception {
+        switch (pokemonGame) {
+            case "gold-silver":
+            case "crystal":
+                return 2;
+            case "ruby-sapphire":
+            case "emerald":
+            case "firered-leafgreen":
+                return 3;
+            case "diamond-pearl":
+            case "platinum":
+            case "heartgold-soulsilver":
+                return 4;
+            case "black-white":
+            case "black-2-white-2":
+                return 5;
+            case "x-y":
+            case "omega-ruby-alpha-sapphire":
+                return 6;
+            case "sun-moon":
+            case "ultra-sun-ultra-moon":
+                return 7;
+            case "lets-go-pikachu-lets-go-eevee":
+            case "sword-shield":
+                return 8;
+            case "legends-arceus":
+            case "scarlet-violet":
+                return 9;
+            default:
+                throw new Exception();
         }
     }
 

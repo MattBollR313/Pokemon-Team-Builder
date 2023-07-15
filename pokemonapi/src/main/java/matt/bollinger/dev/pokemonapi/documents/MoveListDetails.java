@@ -28,7 +28,7 @@ public class MoveListDetails {
     private Object meta;
     private String name;
     private List<Object> names;
-    private List<Object> past_values; // Important
+    private List<MovePastValue> past_values; // Important
     private Integer power; // Important
     private Integer pp; // Important
     private Integer priority;
