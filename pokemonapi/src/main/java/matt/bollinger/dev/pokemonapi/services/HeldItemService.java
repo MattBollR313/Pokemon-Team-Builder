@@ -53,7 +53,7 @@ public class HeldItemService {
         return newItemNames;
     }
 
-    public String getHeldItemDescription(String itemName) {
+    public String getHeldItemDescription(String itemName) throws Exception {
         String apiUrl = itemDetailsUrl + itemName;
 
         ItemDetails itemInfo = builder.get().uri(apiUrl).retrieve()
@@ -62,6 +62,8 @@ public class HeldItemService {
             .bodyToMono(ItemDetails.class).block();
 
         String description = itemInfo.getEffect_entries().get(0).getShort_effect();
+        if (description.length() >= 6 && description.substring(0, 6).equals("Held: "))
+            description = description.substring(6);
 
         return description;
     }

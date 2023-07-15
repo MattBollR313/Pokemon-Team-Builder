@@ -25,10 +25,7 @@ public class HeldItemController {
     @GetMapping
     public ResponseEntity<List<List<String>>> getHeldItems() {
         try {
-            if (heldItemService.allHeldItems().isEmpty())
-                return new ResponseEntity<List<List<String>>>(new ArrayList<>(), HttpStatus.BAD_GATEWAY);
-            else
-                return new ResponseEntity<List<List<String>>>(heldItemService.allHeldItems(), HttpStatus.OK);
+            return new ResponseEntity<List<List<String>>>(heldItemService.allHeldItems(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<List<List<String>>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
         }
@@ -38,10 +35,7 @@ public class HeldItemController {
     @GetMapping("/{itemName}")
     public ResponseEntity<String> getHeldItemsWithArg(@PathVariable String itemName) {
         try {
-            if (heldItemService.allHeldItems().isEmpty())
-                return new ResponseEntity<String>("", HttpStatus.BAD_GATEWAY);
-            else
-                return new ResponseEntity<String>(heldItemService.getHeldItemDescription(itemName), HttpStatus.OK);
+            return new ResponseEntity<String>(heldItemService.getHeldItemDescription(itemName), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("", HttpStatus.NOT_FOUND);
         }
