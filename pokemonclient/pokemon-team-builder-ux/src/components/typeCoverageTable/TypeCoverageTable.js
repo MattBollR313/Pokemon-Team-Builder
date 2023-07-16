@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import './TypeCoverageTable.css';
 
 const TypeCoverageTable = ({pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6}) => {
 
@@ -15,7 +16,7 @@ const TypeCoverageTable = ({pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, po
     }
       
     const rows = [
-        createData('Normal', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Normal.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
         createData('Fire', 'No', 'No', 'No', 'Yes', 'No', 'No'),
         createData('Water', 'Yes', 'No', 'No', 'No', 'No', 'No'),
         createData('Grass', 'No', 'Yes', 'No', 'No', 'No', 'No'),
@@ -61,7 +62,7 @@ const TypeCoverageTable = ({pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, po
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {row.type}
+                                <img className="table-type-icon" src={row.type} alt="Type" />
                             </TableCell>
                             <TableCell>{row.coverage1}</TableCell>
                             <TableCell>{row.coverage2}</TableCell>

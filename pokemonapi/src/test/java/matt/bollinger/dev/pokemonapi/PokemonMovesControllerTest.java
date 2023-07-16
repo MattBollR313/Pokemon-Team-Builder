@@ -32,7 +32,7 @@ public class PokemonMovesControllerTest {
 
 	@Test
 	public void testTwoArgumentRequest() throws Exception {
-		String[] moveDetails = {"Inflicts regular damage and can hit Dive users.","Water","95","15","100"};
+		String[] moveDetails = {"Inflicts regular damage and can hit Dive users.","Water","Special","95","15","100"};
 
 		Mockito.when(service.getPokemonMoveInfo("surf", "original-sinnoh")).thenReturn(Arrays.asList(moveDetails));
 		mockMvc.perform(MockMvcRequestBuilders.get(endPoint + "/surf/original-sinnoh").contentType("application/json"))
@@ -41,7 +41,7 @@ public class PokemonMovesControllerTest {
 
 	@Test
 	public void testTwoArgumentRequestWithNewGen() throws Exception {
-		String[] moveDetails = {"Inflicts regular damage and can hit Dive users.","Water","90","15","100"};
+		String[] moveDetails = {"Inflicts regular damage and can hit Dive users.","Water","Special","90","15","100"};
 
 		Mockito.when(service.getPokemonMoveInfo("surf", "kalos-central")).thenReturn(Arrays.asList(moveDetails));
 		mockMvc.perform(MockMvcRequestBuilders.get(endPoint + "/surf/kalos-central").contentType("application/json"))

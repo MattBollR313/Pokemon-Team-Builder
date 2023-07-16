@@ -41,6 +41,7 @@ public class PokemonMovesService {
 
         String description = move.getEffect_entries().get(0).getShort_effect();
         String type = move.getType().getName().substring(0, 1).toUpperCase() + move.getType().getName().substring(1);
+        String damageClass = move.getDamage_class().getName().substring(0, 1).toUpperCase() + move.getDamage_class().getName().substring(1);
         String power = move.getPower() != null ? move.getPower().toString() : null;
         String pp = move.getPp() != null ? move.getPp().toString() : null;
         String accuracy = move.getAccuracy() != null ? move.getAccuracy().toString() : null;
@@ -71,6 +72,7 @@ public class PokemonMovesService {
         List<String> moveDetails = new ArrayList<>();
         moveDetails.add(description);
         moveDetails.add(type);
+        moveDetails.add(damageClass);
         moveDetails.add(power);
         moveDetails.add(pp);
         moveDetails.add(accuracy);

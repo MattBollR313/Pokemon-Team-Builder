@@ -166,7 +166,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           `images/${moveDetailsResponse.data[1]}.png`,
           moveDetailsResponse.data[2],
           moveDetailsResponse.data[3],
-          moveDetailsResponse.data[4]
+          moveDetailsResponse.data[4],
+          moveDetailsResponse.data[5]
         ]);
       else if (dropdownNum === 2)
         setMoveDetails2([
@@ -174,7 +175,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           `images/${moveDetailsResponse.data[1]}.png`,
           moveDetailsResponse.data[2],
           moveDetailsResponse.data[3],
-          moveDetailsResponse.data[4]
+          moveDetailsResponse.data[4],
+          moveDetailsResponse.data[5]
         ]);
       else if (dropdownNum === 3)
         setMoveDetails3([
@@ -182,7 +184,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           `images/${moveDetailsResponse.data[1]}.png`,
           moveDetailsResponse.data[2],
           moveDetailsResponse.data[3],
-          moveDetailsResponse.data[4]
+          moveDetailsResponse.data[4],
+          moveDetailsResponse.data[5]
         ]);
       else
         setMoveDetails4([
@@ -190,7 +193,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
           `images/${moveDetailsResponse.data[1]}.png`,
           moveDetailsResponse.data[2],
           moveDetailsResponse.data[3],
-          moveDetailsResponse.data[4]
+          moveDetailsResponse.data[4],
+          moveDetailsResponse.data[5]
         ]);
     } 
     catch (err) {  
@@ -330,11 +334,12 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                     { moveDetails.length !== 0 && moveDetails[0] !== null ? <div className="move-description">Description: {moveDetails[0]}</div> : null }
                     <Col xs={6}>
                       { moveDetails.length !== 0 && moveDetails[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails[1]} alt="Move Type" /></div> : null }
-                      { moveDetails.length !== 0 && moveDetails[3] !== null ? <div className="move-pp">PP: {moveDetails[3]}</div> : null }
+                      { moveDetails.length !== 0 && moveDetails[2] !== null ? <div className="move-category">Category: {moveDetails[2]}</div> : null }
                     </Col>
                     <Col xs={6}>
-                      { moveDetails.length !== 0 && moveDetails[2] !== null ? <div className="move-power">Power: {moveDetails[2]}</div> : null }
-                      { moveDetails.length !== 0 && moveDetails[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails[4]}</div> : null }
+                      { moveDetails.length !== 0 && moveDetails[4] !== null ? <div className="move-pp">PP: {moveDetails[4]}</div> : null }
+                      { moveDetails.length !== 0 && moveDetails[3] !== null ? <div className="move-power">Power: {moveDetails[3]}</div> : null }
+                      { moveDetails.length !== 0 && moveDetails[5] !== null ? <div className="move-accuracy">Accuracy: {moveDetails[5]}</div> : null }
                     </Col>
                   </Row>
                   { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={(e) => handleMoveChange(e, 2)} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select Move 2"} /></div> : null }
@@ -342,11 +347,12 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                     { moveDetails2.length !== 0 && moveDetails2[0] !== null ? <div className="move-description">Description: {moveDetails2[0]}</div> : null }
                     <Col xs={6}>
                       { moveDetails2.length !== 0 && moveDetails2[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails2[1]} alt="Move Type" /></div> : null }
-                      { moveDetails2.length !== 0 && moveDetails2[3] !== null ? <div className="move-pp">PP: {moveDetails2[3]}</div> : null }
+                      { moveDetails2.length !== 0 && moveDetails2[2] !== null ? <div className="move-category">Category: {moveDetails2[2]}</div> : null }
                     </Col>
                     <Col xs={6}>
-                      { moveDetails2.length !== 0 && moveDetails2[2] !== null ? <div className="move-power">Power: {moveDetails2[2]}</div> : null }
-                      { moveDetails2.length !== 0 && moveDetails2[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails2[4]}</div> : null }
+                      { moveDetails2.length !== 0 && moveDetails2[4] !== null ? <div className="move-pp">PP: {moveDetails2[4]}</div> : null }
+                      { moveDetails2.length !== 0 && moveDetails2[3] !== null ? <div className="move-power">Power: {moveDetails2[3]}</div> : null }
+                      { moveDetails2.length !== 0 && moveDetails2[5] !== null ? <div className="move-accuracy">Accuracy: {moveDetails2[5]}</div> : null }
                     </Col>
                   </Row>
                 </div>
@@ -358,11 +364,12 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                     { moveDetails3.length !== 0 && moveDetails3[0] !== null ? <div className="move-description">Description: {moveDetails3[0]}</div> : null }
                     <Col xs={6}>
                       { moveDetails3.length !== 0 && moveDetails3[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails3[1]} alt="Move Type" /></div> : null }
-                      { moveDetails3.length !== 0 && moveDetails3[3] !== null ? <div className="move-pp">PP: {moveDetails3[3]}</div> : null }
+                      { moveDetails3.length !== 0 && moveDetails3[2] !== null ? <div className="move-category">Category: {moveDetails3[2]}</div> : null }
                     </Col>
                     <Col xs={6}>
-                      { moveDetails3.length !== 0 && moveDetails3[2] !== null ? <div className="move-power">Power: {moveDetails3[2]}</div> : null }
-                      { moveDetails3.length !== 0 && moveDetails3[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails3[4]}</div> : null }
+                      { moveDetails3.length !== 0 && moveDetails3[4] !== null ? <div className="move-pp">PP: {moveDetails3[4]}</div> : null }
+                      { moveDetails3.length !== 0 && moveDetails3[3] !== null ? <div className="move-power">Power: {moveDetails3[3]}</div> : null }
+                      { moveDetails3.length !== 0 && moveDetails3[5] !== null ? <div className="move-accuracy">Accuracy: {moveDetails3[5]}</div> : null }
                     </Col>
                   </Row>
                   { moveNames.length !== 0 ? <div><Select options={moveOptions} onChange={(e) => handleMoveChange(e, 4)} autoFocus={true} isClearable={true} menuPortalTarget={document.body}  styles={{ menuPortal: base => ({ ...base, zIndex: 9999, textAlign: "center" }) }} placeholder={"Select Move 4"} /></div> : null }
@@ -370,11 +377,12 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                     { moveDetails4.length !== 0 && moveDetails4[0] !== null ? <div className="move-description">Description: {moveDetails4[0]}</div> : null }
                     <Col xs={6}>
                       { moveDetails4.length !== 0 && moveDetails4[1] !== null ? <div className="move-type"><img className="type-icon" src={moveDetails4[1]} alt="Move Type" /></div> : null }
-                      { moveDetails4.length !== 0 && moveDetails4[3] !== null ? <div className="move-pp">PP: {moveDetails4[3]}</div> : null }
+                      { moveDetails4.length !== 0 && moveDetails4[2] !== null ? <div className="move-category">Category: {moveDetails4[2]}</div> : null }
                     </Col>
                     <Col xs={6}>
-                      { moveDetails4.length !== 0 && moveDetails4[2] !== null ? <div className="move-power">Power: {moveDetails4[2]}</div> : null }
-                      { moveDetails4.length !== 0 && moveDetails4[4] !== null ? <div className="move-accuracy">Accuracy: {moveDetails4[4]}</div> : null }
+                      { moveDetails4.length !== 0 && moveDetails4[4] !== null ? <div className="move-pp">PP: {moveDetails4[4]}</div> : null }
+                      { moveDetails4.length !== 0 && moveDetails4[3] !== null ? <div className="move-power">Power: {moveDetails4[3]}</div> : null }
+                      { moveDetails4.length !== 0 && moveDetails4[5] !== null ? <div className="move-accuracy">Accuracy: {moveDetails4[5]}</div> : null }
                     </Col>
                   </Row>
                 </div>
