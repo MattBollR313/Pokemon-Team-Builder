@@ -3,7 +3,7 @@ import Select from 'react-select';
 import api from '../../api/axiosConfig';
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import PokemonSlot from '../pokemonSlot/PokemonSlot';
 import TypeCoverageTable from '../typeCoverageTable/TypeCoverageTable';
 import pokemonIcon from '../../images/pokeball.png';
@@ -110,7 +110,14 @@ const Home = () => {
     }
   };
 
-  
+  const [showTable, setShowTable] = useState(false);
+
+  const handleTableClick = () => {
+    if (showTable === true)
+      setShowTable(false);
+    else
+      setShowTable(true);
+  };
 
   return (
     <Container fluid="lg" data-testid="home-1">
@@ -121,7 +128,9 @@ const Home = () => {
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
             <div className="d-lg-none">&nbsp;</div>
           </Col>
-          <div className="type-coverage-table">{<TypeCoverageTable pokemon1="Empoleon" pokemon2="Roserade" pokemon3="Garchomp" pokemon4="Houndoom" pokemon5="Starapter" pokemon6="Luxray" />}</div>
+          <div className="d-xs-block d-lg-none"><Button onClick={handleTableClick}>Toggle Type Coverage Table</Button></div>
+          { showTable === true ? <div className="d-lg-none"><div className="type-coverage-table">{<TypeCoverageTable pokemon1="Empoleon" pokemon2="Roserade" pokemon3="Garchomp" pokemon4="Houndoom" pokemon5="Starapter" pokemon6="Luxray" />}</div></div> : <div className="d-lg-none">&nbsp;</div> }
+          <div className="d-none d-lg-block"><div className="type-coverage-table">{<TypeCoverageTable pokemon1="Empoleon" pokemon2="Roserade" pokemon3="Garchomp" pokemon4="Houndoom" pokemon5="Starapter" pokemon6="Luxray" />}</div></div>
         </Col>
         <Col xs={12} lg={6}>
           {

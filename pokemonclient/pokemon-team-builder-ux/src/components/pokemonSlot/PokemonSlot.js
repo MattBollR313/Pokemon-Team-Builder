@@ -312,7 +312,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
                   { abilityDescription !== null ? <div className="ability-description">{abilityDescription}</div> : <div className="info-description"></div> }
                   <Row className="pokemon-info">
                     <Col xs={6}>
-                      { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <img className="type-icon" src={type} alt="Type" />)}</div> : null }
+                      { pokemonTypes.length !== 0 ? <div className="pokemon-info"><h6>Types:</h6>{pokemonTypes.map(type => <div><img className="type-icon" src={type} alt="Type" /></div>)}</div> : null }
                       { pokemonEvolution !== null ? <div className="pokemon-info"><h6>Evolution Status:</h6><div>{pokemonEvolution}</div></div> : null }
                     </Col>
                     <Col xs={6}>

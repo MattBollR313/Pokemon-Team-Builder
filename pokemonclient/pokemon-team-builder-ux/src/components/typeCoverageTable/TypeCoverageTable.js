@@ -15,12 +15,24 @@ const TypeCoverageTable = ({pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, po
     }
       
     const rows = [
+        createData('Normal', 'No', 'No', 'Yes', 'No', 'No', 'No'),
         createData('Fire', 'No', 'No', 'No', 'Yes', 'No', 'No'),
         createData('Water', 'Yes', 'No', 'No', 'No', 'No', 'No'),
         createData('Grass', 'No', 'Yes', 'No', 'No', 'No', 'No'),
         createData('Electric', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('Ice', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('Fighting', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('Poison', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('Ground', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('Flying', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('Psychic', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('Bug', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('Rock', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('Ghost', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('Dark', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('Dragon', 'No', 'No', 'Yes', 'No', 'No', 'No'),
         createData('Steel', 'Yes', 'No', 'No', 'No', 'No', 'No'),
-        createData('Ground', 'No', 'No', 'Yes', 'No', 'No', 'No')
+        createData('Fairy', 'No', 'No', 'Yes', 'No', 'No', 'No')
     ];
 
     useEffect(() => {
