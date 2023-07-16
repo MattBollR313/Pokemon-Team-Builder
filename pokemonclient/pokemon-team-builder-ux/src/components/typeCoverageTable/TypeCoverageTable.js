@@ -17,23 +17,23 @@ const TypeCoverageTable = ({pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, po
       
     const rows = [
         createData('images/Normal.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Fire', 'No', 'No', 'No', 'Yes', 'No', 'No'),
-        createData('Water', 'Yes', 'No', 'No', 'No', 'No', 'No'),
-        createData('Grass', 'No', 'Yes', 'No', 'No', 'No', 'No'),
-        createData('Electric', 'No', 'No', 'No', 'No', 'No', 'Yes'),
-        createData('Ice', 'No', 'No', 'No', 'No', 'No', 'Yes'),
-        createData('Fighting', 'No', 'No', 'No', 'No', 'No', 'Yes'),
-        createData('Poison', 'No', 'No', 'No', 'No', 'No', 'Yes'),
-        createData('Ground', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Flying', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Psychic', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Bug', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Rock', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Ghost', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Dark', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Dragon', 'No', 'No', 'Yes', 'No', 'No', 'No'),
-        createData('Steel', 'Yes', 'No', 'No', 'No', 'No', 'No'),
-        createData('Fairy', 'No', 'No', 'Yes', 'No', 'No', 'No')
+        createData('images/Fire.png', 'No', 'No', 'No', 'Yes', 'No', 'No'),
+        createData('images/Water.png', 'Yes', 'No', 'No', 'No', 'No', 'No'),
+        createData('images/Grass.png', 'No', 'Yes', 'No', 'No', 'No', 'No'),
+        createData('images/Electric.png', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('images/Ice.png', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('images/Fighting.png', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('images/Poison.png', 'No', 'No', 'No', 'No', 'No', 'Yes'),
+        createData('images/Ground.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Flying.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Psychic.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Bug.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Rock.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Ghost.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Dark.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Dragon.png', 'No', 'No', 'Yes', 'No', 'No', 'No'),
+        createData('images/Steel.png', 'Yes', 'No', 'No', 'No', 'No', 'No'),
+        createData('images/Fairy.png', 'No', 'No', 'Yes', 'No', 'No', 'No')
     ];
 
     useEffect(() => {
@@ -47,12 +47,12 @@ const TypeCoverageTable = ({pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, po
                     <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
-                        <TableCell>{pokemon1}</TableCell>
-                        <TableCell>{pokemon2}</TableCell>
-                        <TableCell>{pokemon3}</TableCell>
-                        <TableCell>{pokemon4}</TableCell>
-                        <TableCell>{pokemon5}</TableCell>
-                        <TableCell>{pokemon6}</TableCell>
+                        <TableCell align="center">{pokemon1}</TableCell>
+                        <TableCell align="center">{pokemon2}</TableCell>
+                        <TableCell align="center">{pokemon3}</TableCell>
+                        <TableCell align="center">{pokemon4}</TableCell>
+                        <TableCell align="center">{pokemon5}</TableCell>
+                        <TableCell align="center">{pokemon6}</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -61,15 +61,15 @@ const TypeCoverageTable = ({pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, po
                         key={row.type}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell component="th" scope="row">
+                            <TableCell component="th" scope="row" align="center">
                                 <img className="table-type-icon" src={row.type} alt="Type" />
                             </TableCell>
-                            <TableCell>{row.coverage1}</TableCell>
-                            <TableCell>{row.coverage2}</TableCell>
-                            <TableCell>{row.coverage3}</TableCell>
-                            <TableCell>{row.coverage4}</TableCell>
-                            <TableCell>{row.coverage5}</TableCell>
-                            <TableCell>{row.coverage6}</TableCell>
+                            <TableCell align="center">{row.coverage1}</TableCell>
+                            <TableCell align="center">{row.coverage2}</TableCell>
+                            <TableCell align="center">{row.coverage3}</TableCell>
+                            <TableCell align="center">{row.coverage4}</TableCell>
+                            <TableCell align="center">{row.coverage5}</TableCell>
+                            <TableCell align="center">{row.coverage6}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
