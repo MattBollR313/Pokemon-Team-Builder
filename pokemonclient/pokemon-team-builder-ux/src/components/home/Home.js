@@ -110,6 +110,14 @@ const Home = () => {
     }
   };
 
+  // Pokemon Type Chart Input
+  const [pokemonOneTypes, setPokemonOneTypes] = useState([]);
+  const [pokemonTwoTypes, setPokemonTwoTypes] = useState([]);
+  const [pokemonThreeTypes, setPokemonThreeTypes] = useState([]);
+  const [pokemonFourTypes, setPokemonFourTypes] = useState([]);
+  const [pokemonFiveTypes, setPokemonFiveTypes] = useState([]);
+  const [pokemonSixTypes, setPokemonSixTypes] = useState([]);
+
   const [showTable, setShowTable] = useState(false);
 
   const handleTableClick = () => {
@@ -129,38 +137,38 @@ const Home = () => {
             <div className="d-lg-none">&nbsp;</div>
           </Col>
           <div className="d-xs-block d-lg-none"><Button onClick={handleTableClick}>Toggle Type Coverage Table</Button></div>
-          { showTable === true ? <div className="d-lg-none"><div className="type-coverage-table">{<TypeCoverageTable pokemon1="Empoleon" pokemon2="Roserade" pokemon3="Garchomp" pokemon4="Houndoom" pokemon5="Starapter" pokemon6="Luxray" />}</div></div> : <div className="d-lg-none">&nbsp;</div> }
-          <div className="d-none d-lg-block"><div className="type-coverage-table">{<TypeCoverageTable pokemon1="Empoleon" pokemon2="Roserade" pokemon3="Garchomp" pokemon4="Houndoom" pokemon5="Starapter" pokemon6="Luxray" />}</div></div>
+          { showTable === true ? <div className="d-lg-none"><div className="type-coverage-table">{<TypeCoverageTable pokemon1Types={pokemonOneTypes} pokemon2Types={pokemonTwoTypes} pokemon3Types={pokemonThreeTypes} pokemon4Types={pokemonFourTypes} pokemon5Types={pokemonFiveTypes} pokemon6Types={pokemonSixTypes} />}</div></div> : <div className="d-lg-none">&nbsp;</div> }
+          <div className="d-none d-lg-block"><div className="type-coverage-table">{<TypeCoverageTable pokemon1Types={pokemonOneTypes} pokemon2Types={pokemonTwoTypes} pokemon3Types={pokemonThreeTypes} pokemon4Types={pokemonFourTypes} pokemon5Types={pokemonFiveTypes} pokemon6Types={pokemonSixTypes} />}</div></div>
         </Col>
         <Col xs={12} lg={6}>
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonOneTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonTwoTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonThreeTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFourTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFiveTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonSixTypes} />}
             </div>
           }
         </Col>

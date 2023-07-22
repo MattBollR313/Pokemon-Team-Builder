@@ -9,7 +9,7 @@ import './PokemonSlot.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
-const PokemonSlot = ({availablePokemon, gameGeneration}) => {
+const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) => {
 
   const [pokemonInfo, setPokemonInfo] = useState(null);
 
@@ -56,11 +56,14 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     try {  
       const typesResponse = await api.get(`/api/types/${gameGeneration}/${pokemonName}`);
       console.log(`Types Returned:`, typesResponse.data);
+      const correctPokemonName = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
       if (typesResponse.data.length === 1) {
+        setPokemonTableType([`${correctPokemonName}`, `${typesResponse.data[0]}`]);
         setPokemonTypes([
           `images/${typesResponse.data[0]}.png`
         ]);
       } else {
+        setPokemonTableType([`${correctPokemonName}`, `${typesResponse.data[0]}`, `${typesResponse.data[1]}`]);
         setPokemonTypes([
           `images/${typesResponse.data[0]}.png`,
           `images/${typesResponse.data[1]}.png`
@@ -292,6 +295,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration}) => {
     setHeldItemNames([]);
     setHeldItemDescription(null);
     setPokemonTypes([]);
+    setPokemonTableType([]);
     setStatNames([]);
     setPokemonEvolution(null);
     console.log("Box Cleared");
