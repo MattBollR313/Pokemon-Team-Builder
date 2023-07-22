@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import matt.bollinger.dev.pokemonapi.documents.*;
+import matt.bollinger.dev.pokemonapi.common.NameConverter;
 
 @Service
 public class AvailablePokemonService {
@@ -30,7 +31,7 @@ public class AvailablePokemonService {
         List<String> pokemonNames = new ArrayList<>();
         for (PokemonEntry entry: pokemonEntries) {
             String entryName = entry.getPokemon_species().getName();
-            pokemonNames.add(entryName.substring(0, 1).toUpperCase() + entryName.substring(1));
+            pokemonNames.add(NameConverter.convertName(entryName));
         }
 
         return pokemonNames;

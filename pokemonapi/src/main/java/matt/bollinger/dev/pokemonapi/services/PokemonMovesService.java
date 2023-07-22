@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import matt.bollinger.dev.pokemonapi.documents.*;
+import matt.bollinger.dev.pokemonapi.common.NameConverter;
 
 @Service
 public class PokemonMovesService {
@@ -145,27 +146,12 @@ public class PokemonMovesService {
 
     private List<List<String>> getMoveNames(List<MoveList> pokemonMoves) {
         List<List<String>> moveNames = new ArrayList<>();
-
+    
         for (int i = 0; i < pokemonMoves.size(); i++) {
+            String moveEntry = pokemonMoves.get(i).getMove().getName();
             moveNames.add(new ArrayList<>());
-        }
-
-        for (int i = 0; i < moveNames.size(); i++) {
-            String typeEntry = pokemonMoves.get(i).getMove().getName();
-            moveNames.get(i).add(typeEntry);
-            if (!typeEntry.contains("-")) {
-                moveNames.get(i).add(typeEntry.substring(0, 1).toUpperCase() + typeEntry.substring(1));
-            } else {
-                String newMoveName = typeEntry.replaceAll("-", " ");
-                newMoveName = newMoveName.substring(0, 1).toUpperCase() + newMoveName.substring(1);
-                int firstSpace = newMoveName.indexOf(" ");
-                int lastSpace = newMoveName.lastIndexOf(" ");
-                newMoveName = newMoveName.substring(0, firstSpace + 1) + newMoveName.substring(firstSpace + 1, firstSpace + 2).toUpperCase() + newMoveName.substring(firstSpace + 2);
-                if (lastSpace != firstSpace) {
-                    newMoveName = newMoveName.substring(0, lastSpace + 1) + newMoveName.substring(lastSpace + 1, lastSpace + 2).toUpperCase() + newMoveName.substring(lastSpace + 2);
-                }
-                moveNames.get(i).add(newMoveName);
-            }
+            moveNames.get(i).add(moveEntry);
+            moveNames.get(i).add(NameConverter.convertName(moveEntry));
         }
 
         return moveNames;
