@@ -118,6 +118,7 @@ const Home = () => {
   const [pokemonFiveTypes, setPokemonFiveTypes] = useState([]);
   const [pokemonSixTypes, setPokemonSixTypes] = useState([]);
 
+  // Pokemon Type Chart Toggle Button Logic
   const [showTable, setShowTable] = useState(false);
 
   const handleTableClick = () => {

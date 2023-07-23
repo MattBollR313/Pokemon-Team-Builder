@@ -11,6 +11,7 @@ import './TypeCoverageTable.css';
 
 const TypeCoverageTable = ({pokemon1Types, pokemon2Types, pokemon3Types, pokemon4Types, pokemon5Types, pokemon6Types}) => {
 
+    // Places checkmark in row if a Pokemon is the specific type
     function createTypeData(type) {
         const typeData = [`images/${type}.png`];
         const allPokemonTypes = [pokemon1Types, pokemon2Types, pokemon3Types, pokemon4Types, pokemon5Types, pokemon6Types];
@@ -23,6 +24,7 @@ const TypeCoverageTable = ({pokemon1Types, pokemon2Types, pokemon3Types, pokemon
         return typeData;
     }
 
+    // Creates all of the rows with the types and associated checkmarks
     const rows = [
         createTypeData('Normal'),
         createTypeData('Fire'),
@@ -44,6 +46,7 @@ const TypeCoverageTable = ({pokemon1Types, pokemon2Types, pokemon3Types, pokemon
         createTypeData('Fairy')
     ];
 
+    // Renders again if the type(s) of one of the Pokemon changes
     useEffect(() => {
         
     },[pokemon1Types, pokemon2Types, pokemon3Types, pokemon4Types, pokemon5Types, pokemon6Types])
