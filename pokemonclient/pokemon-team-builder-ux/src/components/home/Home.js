@@ -3,8 +3,9 @@ import Select from 'react-select';
 import api from '../../api/axiosConfig';
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import PokemonSlot from '../pokemonSlot/PokemonSlot';
+import TypeCoverageTable from '../typeCoverageTable/TypeCoverageTable';
 import pokemonIcon from '../../images/pokeball.png';
 import './Home.css';
 
@@ -109,48 +110,66 @@ const Home = () => {
     }
   };
 
-  
+  // Pokemon Type Chart Input
+  const [pokemonOneTypes, setPokemonOneTypes] = useState([]);
+  const [pokemonTwoTypes, setPokemonTwoTypes] = useState([]);
+  const [pokemonThreeTypes, setPokemonThreeTypes] = useState([]);
+  const [pokemonFourTypes, setPokemonFourTypes] = useState([]);
+  const [pokemonFiveTypes, setPokemonFiveTypes] = useState([]);
+  const [pokemonSixTypes, setPokemonSixTypes] = useState([]);
+
+  // Pokemon Type Chart Toggle Button Logic
+  const [showTable, setShowTable] = useState(false);
+
+  const handleTableClick = () => {
+    if (showTable === true)
+      setShowTable(false);
+    else
+      setShowTable(true);
+  };
 
   return (
     <Container fluid="lg" data-testid="home-1">
       <Row style={{marginTop: '2rem'}}>
         <Col xs={12} lg={6}>
-          <h4><img className="home-icon" src={pokemonIcon} alt="Pokemon Icon" /> Pokemon Team Builder</h4>
-          <div>&nbsp;</div>
+          <h4 className="home-title"><img className="home-icon" src={pokemonIcon} alt="Pokemon Icon" /> Pokemon Team Builder</h4>
           <Col className="mx-auto" md={6}>
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
             <div className="d-lg-none">&nbsp;</div>
           </Col>
+          <div className="d-xs-block d-lg-none"><Button onClick={handleTableClick}>Toggle Type Coverage Table</Button></div>
+          { showTable === true ? <div className="d-lg-none"><div className="type-coverage-table">{<TypeCoverageTable pokemon1Types={pokemonOneTypes} pokemon2Types={pokemonTwoTypes} pokemon3Types={pokemonThreeTypes} pokemon4Types={pokemonFourTypes} pokemon5Types={pokemonFiveTypes} pokemon6Types={pokemonSixTypes} />}</div></div> : <div className="d-lg-none">&nbsp;</div> }
+          <div className="d-none d-lg-block"><div className="type-coverage-table">{<TypeCoverageTable pokemon1Types={pokemonOneTypes} pokemon2Types={pokemonTwoTypes} pokemon3Types={pokemonThreeTypes} pokemon4Types={pokemonFourTypes} pokemon5Types={pokemonFiveTypes} pokemon6Types={pokemonSixTypes} />}</div></div>
         </Col>
         <Col xs={12} lg={6}>
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonOneTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonTwoTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonThreeTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFourTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFiveTypes} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)}/>}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonSixTypes} />}
             </div>
           }
         </Col>

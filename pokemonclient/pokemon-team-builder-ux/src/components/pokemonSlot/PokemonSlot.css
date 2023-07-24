@@ -3,14 +3,41 @@
 }
 
 .slot-box {
-    padding: 1rem;
-    min-height: 150px;
+    padding: 0.3rem;
+    min-height: 250px;
     border: 1px dashed grey;
     border-radius: 5px;
 }
 
+.slot-carousel {
+    position: static;
+}
+
+.slot-carousel-tab {
+    padding: 0.6rem;
+}
+
 .pokemon-info {
     margin-bottom: 1rem;
+}
+
+.ability-description {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.info-description {
+    margin-top: 10px;
+}
+
+.move-details {
+    min-height: 135px;
+    margin-bottom: 10px;
+}
+
+.move-description {
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .add-button {
@@ -21,10 +48,38 @@
     margin-top: 5px;
 }
 
-.type-icon {
-    height: 20px;
+@media only screen and (min-width: 1120px) {
+    .type-icon {
+        max-width: 60%;
+    }
 }
 
-.ability-description {
-    margin-top: 10px;
+@media only screen and (min-width: 1120px) {
+    .type-icon {
+        max-width: 60%;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .type-icon {
+        max-width: 80%;
+    }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 991px) {
+    .type-icon {
+        max-width: 40%;
+    }
+}
+
+@media only screen and (min-width: 401px) and (max-width: 549px) {
+    .type-icon {
+        max-width: 60%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .type-icon {
+        max-width: 80%;
+    }
 }

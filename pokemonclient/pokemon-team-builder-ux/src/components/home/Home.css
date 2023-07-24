@@ -1,3 +1,21 @@
 .home-icon {
     width: 40px;
 }
+
+.home-title {
+    margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 992px) {
+    .type-coverage-table {
+        margin-top: 40px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .type-coverage-table {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+}
+
