@@ -3,7 +3,7 @@ import Select from 'react-select';
 import api from '../../api/axiosConfig';
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import PokemonSlot from '../pokemonSlot/PokemonSlot';
 import TypeCoverageTable from '../typeCoverageTable/TypeCoverageTable';
 import './Home.css';
@@ -109,6 +109,15 @@ const Home = () => {
     }
   };
 
+  // Form Input
+  const [value, setTeamName] = useState(''),
+    onInput = ({target:{value}}) => setTeamName(value),
+    onFormSubmit = e => {
+      e.preventDefault();
+      console.log(value);
+      setTeamName('');
+    }
+
   // Pokemon Type Chart Input
   const [pokemonOneTypes, setPokemonOneTypes] = useState([]);
   const [pokemonTwoTypes, setPokemonTwoTypes] = useState([]);
@@ -133,8 +142,19 @@ const Home = () => {
         <Col xs={12} lg={6}>
           <Col className="mx-auto" md={6}>
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
-            <div className="d-lg-none">&nbsp;</div>
+            <div>&nbsp;</div>
           </Col>
+          <Col className="mx-auto" md={8}>
+            <Form onSubmit={onFormSubmit}>
+              <Form.Control type="text" onChange={onInput} value={value} placeholder="Enter team name" />
+              <div>&nbsp;</div>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
+            </Form>
+          </Col>
+          
+          <div className="d-lg-none">&nbsp;</div>
           <div className="d-xs-block d-lg-none"><Button onClick={handleTableClick}>Toggle Type Coverage Table</Button></div>
           { showTable === true ? <div className="d-lg-none"><div className="type-coverage-table">{<TypeCoverageTable pokemon1Types={pokemonOneTypes} pokemon2Types={pokemonTwoTypes} pokemon3Types={pokemonThreeTypes} pokemon4Types={pokemonFourTypes} pokemon5Types={pokemonFiveTypes} pokemon6Types={pokemonSixTypes} />}</div></div> : <div className="d-lg-none">&nbsp;</div> }
           <div className="d-none d-lg-block"><div className="type-coverage-table">{<TypeCoverageTable pokemon1Types={pokemonOneTypes} pokemon2Types={pokemonTwoTypes} pokemon3Types={pokemonThreeTypes} pokemon4Types={pokemonFourTypes} pokemon5Types={pokemonFiveTypes} pokemon6Types={pokemonSixTypes} />}</div></div>
