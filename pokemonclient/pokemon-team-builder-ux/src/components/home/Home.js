@@ -65,7 +65,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    //getPokemon();
     getPokemonGame();
   },[])
 
@@ -109,32 +108,34 @@ const Home = () => {
     }
   };
 
-  // Pokemon Info Input
-  const [pokemonOneInfo, setPokemonOneInfo] = useState(['112']);
-  const [pokemonTwoInfo, setPokemonTwoInfo] = useState(['112']);
-  const [pokemonThreeInfo, setPokemonThreeInfo] = useState(['112']);
-  const [pokemonFourInfo, setPokemonFourInfo] = useState(['112']);
-  const [pokemonFiveInfo, setPokemonFiveInfo] = useState(['112']);
-  const [pokemonSixInfo, setPokemonSixInfo] = useState(['112']);
+  // Pokemon Details Input
+  const [pokemonOneDetails, setPokemonOneDetails] = useState([]);
+  const [pokemonTwoDetails, setPokemonTwoDetails] = useState([]);
+  const [pokemonThreeDetails, setPokemonThreeDetails] = useState([]);
+  const [pokemonFourDetails, setPokemonFourDetails] = useState([]);
+  const [pokemonFiveDetails, setPokemonFiveDetails] = useState([]);
+  const [pokemonSixDetails, setPokemonSixDetails] = useState([]);
 
   // Form Input
   const [value, setTeamName] = useState('');
 
-  const headers = {
-    'team-name': value,
-    'chosen-game': selected,
-    'pokemon-1': pokemonOneInfo,
-    'pokemon-2': pokemonTwoInfo,
-    'pokemon-3': pokemonThreeInfo,
-    'pokemon-4': pokemonFourInfo,
-    'pokemon-5': pokemonFiveInfo,
-    'pokemon-6': pokemonSixInfo
-  }
+  let saveTeam = api.create({
+    headers: {
+      'team-name': value,
+      'chosen-game': selected,
+      'pokemon-1': pokemonOneDetails,
+      'pokemon-2': pokemonTwoDetails,
+      'pokemon-3': pokemonThreeDetails,
+      'pokemon-4': pokemonFourDetails,
+      'pokemon-5': pokemonFiveDetails,
+      'pokemon-6': pokemonSixDetails
+    }
+  })
 
   const savePokemonTeam = async () => {
     try {
       if (selected !== null) {
-        const savePokemonTeamResponse = await api.post(`/api/pokemonteam/save`, headers);
+        const savePokemonTeamResponse = await saveTeam.post(`/api/pokemonteam/save`);
         console.log(`Save Team Status:`, savePokemonTeamResponse.data);
       } else {
         console.log('Failed');
@@ -197,32 +198,32 @@ const Home = () => {
         <Col xs={12} lg={6}>
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonOneTypes} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonOneTypes} setPokemonDetails={setPokemonOneDetails} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonTwoTypes} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonTwoTypes} setPokemonDetails={setPokemonTwoDetails} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonThreeTypes} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonThreeTypes} setPokemonDetails={setPokemonThreeDetails} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFourTypes} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFourTypes} setPokemonDetails={setPokemonFourDetails} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFiveTypes} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFiveTypes} setPokemonDetails={setPokemonFiveDetails} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonSixTypes} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonSixTypes} setPokemonDetails={setPokemonSixDetails} />}
             </div>
           }
         </Col>
