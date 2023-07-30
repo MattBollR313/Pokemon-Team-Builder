@@ -28,7 +28,9 @@ public class PokemonSaveService {
     }
 
     public Boolean savePokemonTeam(String teamName, String chosenGame, List<String> pokemon1, List<String> pokemon2, 
-            List<String> pokemon3, List<String> pokemon4, List<String> pokemon5, List<String> pokemon6) {
+            List<String> pokemon3, List<String> pokemon4, List<String> pokemon5, List<String> pokemon6) throws Exception {
+        if (teamName.equals(null) || chosenGame.equals(null) || pokemon1.isEmpty() || pokemon2.isEmpty() || pokemon3.isEmpty() || pokemon4.isEmpty() || pokemon5.isEmpty() || pokemon6.isEmpty())
+            throw new Exception("A field has not been input");
         String time = LocalDate.now().toString();
         PokemonTeam team;
         if (!pokemonRepository.findTeamByTeamName(teamName).isPresent()) {

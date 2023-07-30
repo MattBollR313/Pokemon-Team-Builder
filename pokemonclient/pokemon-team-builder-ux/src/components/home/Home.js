@@ -132,7 +132,6 @@ const Home = () => {
     <Container fluid="lg" data-testid="home-1">
       <Row style={{marginTop: '2rem'}}>
         <Col xs={12} lg={6}>
-          <h4 className="home-title"><img className="home-icon" src={pokemonIcon} alt="Pokemon Icon" /> Pokemon Team Builder</h4>
           <Col className="mx-auto" md={6}>
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
             <div className="d-lg-none">&nbsp;</div>
