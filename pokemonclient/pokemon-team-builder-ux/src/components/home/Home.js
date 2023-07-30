@@ -109,14 +109,49 @@ const Home = () => {
     }
   };
 
+  // Pokemon Info Input
+  const [pokemonOneInfo, setPokemonOneInfo] = useState(['112']);
+  const [pokemonTwoInfo, setPokemonTwoInfo] = useState(['112']);
+  const [pokemonThreeInfo, setPokemonThreeInfo] = useState(['112']);
+  const [pokemonFourInfo, setPokemonFourInfo] = useState(['112']);
+  const [pokemonFiveInfo, setPokemonFiveInfo] = useState(['112']);
+  const [pokemonSixInfo, setPokemonSixInfo] = useState(['112']);
+
   // Form Input
-  const [value, setTeamName] = useState(''),
-    onInput = ({target:{value}}) => setTeamName(value),
-    onFormSubmit = e => {
-      e.preventDefault();
-      console.log(value);
-      setTeamName('');
-    }
+  const [value, setTeamName] = useState('');
+
+  const headers = {
+    'team-name': value,
+    'chosen-game': selected,
+    'pokemon-1': pokemonOneInfo,
+    'pokemon-2': pokemonTwoInfo,
+    'pokemon-3': pokemonThreeInfo,
+    'pokemon-4': pokemonFourInfo,
+    'pokemon-5': pokemonFiveInfo,
+    'pokemon-6': pokemonSixInfo
+  }
+
+  const savePokemonTeam = async () => {
+    try {
+      if (selected !== null) {
+        const savePokemonTeamResponse = await api.post(`/api/pokemonteam/save`, headers);
+        console.log(`Save Team Status:`, savePokemonTeamResponse.data);
+      } else {
+        console.log('Failed');
+      }
+    } 
+    catch (err) {  
+      console.log(err);
+    }    
+  }
+
+  const onInput = ({target:{value}}) => setTeamName(value);
+  const onFormSubmit = e => {
+    e.preventDefault();
+    console.log(value);
+    savePokemonTeam();
+    setTeamName('');
+  }
 
   // Pokemon Type Chart Input
   const [pokemonOneTypes, setPokemonOneTypes] = useState([]);
@@ -146,7 +181,7 @@ const Home = () => {
           </Col>
           <Col className="mx-auto" md={8}>
             <Form onSubmit={onFormSubmit}>
-              <Form.Control type="text" onChange={onInput} value={value} placeholder="Enter team name" />
+              <Form.Control required type="text" onChange={onInput} value={value} placeholder="Enter team name" />
               <div>&nbsp;</div>
               <Button variant="primary" type="submit">
                 Save
