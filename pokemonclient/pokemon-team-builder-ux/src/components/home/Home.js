@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button } from "react-bootstrap";
 import PokemonSlot from '../pokemonSlot/PokemonSlot';
 import TypeCoverageTable from '../typeCoverageTable/TypeCoverageTable';
-import pokemonIcon from '../../images/pokeball.png';
 import './Home.css';
 
 const Home = () => {
