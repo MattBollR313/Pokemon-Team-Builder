@@ -128,38 +128,6 @@ const Home = () => {
     }
   })
 
-  // Choose Team Functionality
-  const [teamNames, setTeamNames] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
-
-  const getTeamNames = async () => {
-    try {  
-      const teamResponse = await api.get("/api/pokemonteam/allteams");
-      console.log(teamResponse.data);
-      setTeamNames(teamResponse.data);
-    } 
-    catch (err) {  
-      console.log(err);
-    }    
-  }
-
-  const teamOptions = [];
-  for (let i = 0; i < teamNames.length; i++) {
-    teamOptions.push({
-      value: i.toString(),
-      label: teamNames[i]
-    })
-  }
-
-  const [teamSelected, setTeamSelected] = useState(null);
-
-  const handleTeamChange = (selectedOption) => {
-    if (selectedOption !== null) {
-      setTeamSelected(selectedOption.label);
-    } else {
-      setTeamSelected(null);
-    }
-  };
-
   // Save Pokemon Functionality
   const savePokemonTeam = async () => {
     try {
@@ -182,6 +150,53 @@ const Home = () => {
     savePokemonTeam();
     setTeamName('');
   }
+
+  // Choose Team Functionality
+  const [teamNames, setTeamNames] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
+
+  const getTeamNames = async () => {
+    try {  
+      const teamResponse = await api.get("/api/pokemonteam/allteams");
+      console.log(teamResponse.data);
+      setTeamNames(teamResponse.data);
+    } 
+    catch (err) {  
+      console.log(err);
+    }    
+  }
+
+  const teamOptions = [];
+  for (let i = 0; i < teamNames.length; i++) {
+    teamOptions.push({
+      value: i.toString(),
+      label: teamNames[i]
+    })
+  }
+
+  const [selectedTeamDetails, setSelectedTeamDetails] = useState([]);
+  const getTeamSelectedDetails = async (teamSelected) => {
+    try { 
+      let chooseTeam = api.create({
+        headers: {
+          "team-name": teamSelected
+        }
+      })
+      const selectedTeamResponse = await chooseTeam.get("/api/pokemonteam/getTeam");
+      console.log(selectedTeamResponse.data);
+      setSelectedTeamDetails(selectedTeamResponse.data);
+    } 
+    catch (err) {  
+      console.log(err);
+    }  
+  }
+
+  const handleTeamChange = (selectedOption) => {
+    if (selectedOption !== null) {
+      getTeamSelectedDetails(selectedOption.label);
+    } else {
+      setSelectedTeamDetails([]);
+    }
+  };
 
   // Pokemon Type Chart Input
   const [pokemonOneTypes, setPokemonOneTypes] = useState([]);
@@ -217,7 +232,7 @@ const Home = () => {
           <Col className="mx-auto" md={6}>
             <div>&nbsp;</div>
             <div><Select options={teamOptions} onChange={handleTeamChange} autoFocus={true} isClearable={true} placeholder={"Select an existing team"} /></div>
-            {teamSelected !== null ? <div>{teamSelected}</div> : <div>&nbsp;</div> }
+            <div>&nbsp;</div>
           </Col>
           <Col className="mx-auto" md={8}>
             <Form onSubmit={onFormSubmit}>
