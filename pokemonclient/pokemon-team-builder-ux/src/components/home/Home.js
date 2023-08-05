@@ -109,12 +109,12 @@ const Home = () => {
   };
 
   // Pokemon Details Input
-  const [pokemonOneDetails, setPokemonOneDetails] = useState([]);
-  const [pokemonTwoDetails, setPokemonTwoDetails] = useState([]);
-  const [pokemonThreeDetails, setPokemonThreeDetails] = useState([]);
-  const [pokemonFourDetails, setPokemonFourDetails] = useState([]);
-  const [pokemonFiveDetails, setPokemonFiveDetails] = useState([]);
-  const [pokemonSixDetails, setPokemonSixDetails] = useState([]);
+  const [pokemonOneDetails, setPokemonOneDetails] = useState(['']);
+  const [pokemonTwoDetails, setPokemonTwoDetails] = useState(['']);
+  const [pokemonThreeDetails, setPokemonThreeDetails] = useState(['']);
+  const [pokemonFourDetails, setPokemonFourDetails] = useState(['']);
+  const [pokemonFiveDetails, setPokemonFiveDetails] = useState(['']);
+  const [pokemonSixDetails, setPokemonSixDetails] = useState(['']);
 
   // Form Input
   const [value, setTeamName] = useState('');

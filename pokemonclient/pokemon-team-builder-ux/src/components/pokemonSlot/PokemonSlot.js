@@ -13,6 +13,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
 
   const [pokemonInfo, setPokemonInfo] = useState(null);
 
+  const [pokemonDetailsArray, setPokemonDetailsArray] = useState([]);
+
   // Add Button Functionality
   const [addClick, setAddClick] = useState(false);
 
@@ -98,7 +100,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
   }
 
   // Pokemon Evolution Status
-  const [pokemonEvolution, setPokemonEvolution] = useState(null); // Must have [] as an argument as will get an undefined error otherwise
+  const [pokemonEvolution, setPokemonEvolution] = useState(null);
 
   const getPokemonEvolution = async (pokemonName) => {
     try {  
@@ -127,9 +129,13 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
 
   const handleAbilityChange = (selectedOption) => {
     if (selectedOption !== null) {
+      pokemonDetailsArray[1] = selectedOption.label;
+      setPokemonDetails(pokemonDetailsArray);
       setAbilityDescription(pokemonAbilities[selectedOption.value][1]);
       console.log(`Option selected:`, selectedOption);
     } else {
+      pokemonDetailsArray[1] = '';
+      setPokemonDetails(pokemonDetailsArray);
       setAbilityDescription(null);
     }
   };
@@ -207,6 +213,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
 
   const handleMoveChange = (selectedOption, dropdownNum) => {
     if (selectedOption !== null) {
+      pokemonDetailsArray[2 + dropdownNum] = moveNames[selectedOption.value][0];
+      setPokemonDetails(pokemonDetailsArray);
       getMoveDetails(moveNames[selectedOption.value][0], dropdownNum);
       console.log(`Option selected:`, selectedOption);
     } else {
@@ -218,6 +226,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
         setMoveDetails3([]);
       else
         setMoveDetails4([]);
+      pokemonDetailsArray[2 + dropdownNum] = '';
+      setPokemonDetails(pokemonDetailsArray);
     }
   };
 
@@ -256,9 +266,13 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
 
   const handleHeldItemChange = (selectedOption) => {
     if (selectedOption !== null) {
+      pokemonDetailsArray[2] = heldItemNames[selectedOption.value][0];
+      setPokemonDetails(pokemonDetailsArray);
       getHeldItemDescription(heldItemNames[selectedOption.value][0]);
       console.log(`Option selected:`, selectedOption);
     } else {
+      pokemonDetailsArray[2] = '';
+      setPokemonDetails(pokemonDetailsArray);
       setHeldItemDescription(null);
     }
   };
@@ -279,6 +293,9 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     getPokemonTypes(paramName);
     getPokemonStats(paramName);
     getPokemonEvolution(paramName);
+    const pokemonDetailsDefault = [selectedOption.label, '', '', '', '', '', '']
+    setPokemonDetailsArray(pokemonDetailsDefault);
+    setPokemonDetails(pokemonDetailsDefault);
     console.log(`Option selected:`, selectedOption);
   };
 
@@ -298,6 +315,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     setPokemonTableType([]);
     setStatNames([]);
     setPokemonEvolution(null);
+    setPokemonDetailsArray(['']);
+    setPokemonDetails(['']);
     console.log("Box Cleared");
   };
 
