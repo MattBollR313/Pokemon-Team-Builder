@@ -23,9 +23,13 @@ public class PokemonSaveController {
     @Autowired
     private PokemonSaveService pokemonService;
 
-    @GetMapping
-    public ResponseEntity<List<PokemonTeam>> getAllPokemonTeams() {
-        return new ResponseEntity<List<PokemonTeam>>(pokemonService.allPokemonTeams(), HttpStatus.OK);
+    @GetMapping("/allteams")
+    public ResponseEntity<List<String>> getAllPokemonTeams() {
+        try {
+            return new ResponseEntity<List<String>>(pokemonService.allPokemonTeams(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<List<String>>(List.of(e.getMessage()), HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/getTeam")

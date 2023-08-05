@@ -1,5 +1,6 @@
 package matt.bollinger.dev.pokemonapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
@@ -16,8 +17,15 @@ public class PokemonSaveService {
     @Autowired
     private PokemonRepository pokemonRepository;
     
-    public List<PokemonTeam> allPokemonTeams() {
-        return pokemonRepository.findAll();
+    public List<String> allPokemonTeams() throws Exception {
+        List<PokemonTeam> pokemonTeams = pokemonRepository.findAll();
+        if (pokemonTeams.isEmpty())
+            throw new Exception("No teams are found");
+        List<String> teamNames = new ArrayList<>();
+        for (PokemonTeam pokemonTeam: pokemonTeams) {
+            teamNames.add(pokemonTeam.getTeamName());
+        }
+        return teamNames;
     }
 
     public PokemonTeam singlePokemonTeam(String teamName) throws Exception {
