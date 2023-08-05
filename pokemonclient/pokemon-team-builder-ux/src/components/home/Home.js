@@ -64,10 +64,6 @@ const Home = () => {
     }    
   }
 
-  useEffect(() => {
-    getPokemonGame();
-  },[])
-
   // Available Pokemon API Request
   const [availPokemon, setAvailPokemon] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
 
@@ -132,6 +128,39 @@ const Home = () => {
     }
   })
 
+  // Choose Team Functionality
+  const [teamNames, setTeamNames] = useState([]); // Must have [] as an argument as will get an undefined error otherwise
+
+  const getTeamNames = async () => {
+    try {  
+      const teamResponse = await api.get("/api/pokemonteam/allteams");
+      console.log(teamResponse.data);
+      setTeamNames(teamResponse.data);
+    } 
+    catch (err) {  
+      console.log(err);
+    }    
+  }
+
+  const teamOptions = [];
+  for (let i = 0; i < teamNames.length; i++) {
+    teamOptions.push({
+      value: i.toString(),
+      label: teamNames[i]
+    })
+  }
+
+  const [teamSelected, setTeamSelected] = useState(null);
+
+  const handleTeamChange = (selectedOption) => {
+    if (selectedOption !== null) {
+      setTeamSelected(selectedOption.label);
+    } else {
+      setTeamSelected(null);
+    }
+  };
+
+  // Save Pokemon Functionality
   const savePokemonTeam = async () => {
     try {
       if (selected !== null) {
@@ -172,6 +201,11 @@ const Home = () => {
       setShowTable(true);
   };
 
+  useEffect(() => {
+    getPokemonGame();
+    getTeamNames();
+  },[])
+
   return (
     <Container fluid="lg" data-testid="home-1">
       <Row style={{marginTop: '2rem'}}>
@@ -180,12 +214,17 @@ const Home = () => {
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
             <div>&nbsp;</div>
           </Col>
+          <Col className="mx-auto" md={6}>
+            <div>&nbsp;</div>
+            <div><Select options={teamOptions} onChange={handleTeamChange} autoFocus={true} isClearable={true} placeholder={"Select an existing team"} /></div>
+            {teamSelected !== null ? <div>{teamSelected}</div> : <div>&nbsp;</div> }
+          </Col>
           <Col className="mx-auto" md={8}>
             <Form onSubmit={onFormSubmit}>
               <Form.Control required type="text" onChange={onInput} value={value} placeholder="Enter team name" />
               <div>&nbsp;</div>
               <Button variant="primary" type="submit">
-                Save
+                Save Team
               </Button>
             </Form>
           </Col>
