@@ -153,11 +153,6 @@ public class PokemonHintService {
                 return (o2.getValue()).compareTo(o1.getValue()); 
             }
         });
-         
-        /*Map<String, Integer> temp = new HashMap<String, Integer>();
-        for (Map.Entry<String, Integer> aa : hintList) {
-            temp.put(aa.getKey(), aa.getValue());
-        }*/
 
         List<String> finalHints = new ArrayList<>();
         if (hintList.size() <= 5) {

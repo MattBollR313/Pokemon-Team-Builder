@@ -37,7 +37,7 @@ public class PokemonSaveController {
         try {
             return new ResponseEntity<PokemonTeam>(pokemonService.singlePokemonTeam(teamName), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<PokemonTeam>(new PokemonTeam(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<PokemonTeam>(new PokemonTeam(), HttpStatus.NOT_FOUND);
         }
     }
 

@@ -73,7 +73,7 @@ public class BaseStatsHints {
                 " does not have any Pokemon above the 90 baseline. Consider picking a Pokemon with a higher " + hint.get(0), 3);
         } else {
             baseStatsHints.put(hint.toString().substring(1, hint.toString().length() - 1) + 
-                " do not have any Pokemon above the 90 baseline. Consider picking Pokemon(s) with higher statistics", 4);
+                " do not have any Pokemon above the 90 baseline. Consider picking Pokemon with higher statistics", 4);
         }
         return baseStatsHints;
     }

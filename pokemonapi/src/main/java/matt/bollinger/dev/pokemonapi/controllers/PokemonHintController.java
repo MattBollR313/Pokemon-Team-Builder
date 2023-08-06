@@ -23,16 +23,12 @@ public class PokemonHintController {
 
     @GetMapping
     public ResponseEntity<List<String>> getSinglePokemonTeam(@RequestHeader("pokemon-1") List<String> pokemon1, 
-        @RequestHeader("pokemon-2") List<String> pokemon2, 
-        @RequestHeader("pokemon-3") List<String> pokemon3, 
-        @RequestHeader("pokemon-4") List<String> pokemon4, 
-        @RequestHeader("pokemon-5") List<String> pokemon5, 
-        @RequestHeader("pokemon-6") List<String> pokemon6) {
-        try {
-            return new ResponseEntity<List<String>>(hintService.getHints(pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<List<String>>(List.of(e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
+            @RequestHeader("pokemon-2") List<String> pokemon2, 
+            @RequestHeader("pokemon-3") List<String> pokemon3, 
+            @RequestHeader("pokemon-4") List<String> pokemon4, 
+            @RequestHeader("pokemon-5") List<String> pokemon5, 
+            @RequestHeader("pokemon-6") List<String> pokemon6) {
+        return new ResponseEntity<List<String>>(hintService.getHints(pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6), HttpStatus.OK);
     }
 
 }
