@@ -287,7 +287,7 @@ const Home = () => {
 
           <Col className="mx-auto" md={8}>
             <Box className="hint-box">
-              <Carousel showThumbs={false} >
+              <Carousel showIndicators={false} showThumbs={false} >
                 {allHints.map((hint) => {
                   return(<div>{hint}</div>)
                 })}
