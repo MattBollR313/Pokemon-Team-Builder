@@ -209,22 +209,20 @@ const Home = () => {
   const [pokemonFiveHints, setPokemonFiveHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
   const [pokemonSixHints, setPokemonSixHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
 
-  let hintRequest = api.create({
-    headers: {
-      'pokemon-1': pokemonOneHints,
-      'pokemon-2': pokemonTwoHints,
-      'pokemon-3': pokemonThreeHints,
-      'pokemon-4': pokemonFourHints,
-      'pokemon-5': pokemonFiveHints,
-      'pokemon-6': pokemonSixHints
-    }
-  })
-
   const [allHints, setAllHints] = useState(['']);
 
   const getAllHints = async () => {
     try {
-      console.log(`Pokemon One Hints: `, pokemonOneHints);
+      let hintRequest = api.create({
+        headers: {
+          'pokemon-1': pokemonOneHints,
+          'pokemon-2': pokemonTwoHints,
+          'pokemon-3': pokemonThreeHints,
+          'pokemon-4': pokemonFourHints,
+          'pokemon-5': pokemonFiveHints,
+          'pokemon-6': pokemonSixHints
+        }
+      })
       const allHintsResponse = await hintRequest.get(`/api/hints`);
       setAllHints(allHintsResponse.data);
       console.log(`All Hints:`, allHintsResponse.data);
@@ -287,7 +285,7 @@ const Home = () => {
 
           <Col className="mx-auto" md={8}>
             <Box className="hint-box">
-              <Carousel showIndicators={false} showThumbs={false} >
+              <Carousel showStatus={false} showThumbs={false} >
                 {allHints.map((hint) => {
                   return(<div>{hint}</div>)
                 })}

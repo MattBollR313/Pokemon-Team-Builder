@@ -12,6 +12,9 @@ public class BaseStatsHints {
     
     public static Map<String, Integer> getBaseStatsHints(List<List<String>> baseStats) {
         Map<String, Integer> baseStatsHints = new HashMap<>();
+        if (baseStats.get(0).isEmpty() || baseStats.get(1).isEmpty() || baseStats.get(2).isEmpty() || 
+            baseStats.get(3).isEmpty() || baseStats.get(4).isEmpty() || baseStats.get(5).isEmpty())
+            return baseStatsHints;
         Boolean hpGoal = false, attackGoal = false, defenseGoal = false, spAttackGoal = false, spDefenseGoal = false, speedGoal = false;
         for(String hp : baseStats.get(0)) {
             if (Integer.parseInt(hp) > 90) {

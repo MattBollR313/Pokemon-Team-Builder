@@ -98,12 +98,12 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
         `Sp. Def: ${statsResponse.data[4]}`,
         `Speed: ${statsResponse.data[5]}`
       ]);
-      pokemonHintsArray[1] = statsResponse.data[0];
-      pokemonHintsArray[2] = statsResponse.data[1];
-      pokemonHintsArray[3] = statsResponse.data[2];
-      pokemonHintsArray[4] = statsResponse.data[3];
-      pokemonHintsArray[5] = statsResponse.data[4];
-      pokemonHintsArray[6] = statsResponse.data[5];
+      pokemonHintsArray[1] = `${statsResponse.data[0]}`;
+      pokemonHintsArray[2] = `${statsResponse.data[1]}`;
+      pokemonHintsArray[3] = `${statsResponse.data[2]}`;
+      pokemonHintsArray[4] = `${statsResponse.data[3]}`;
+      pokemonHintsArray[5] = `${statsResponse.data[4]}`;
+      pokemonHintsArray[6] = `${statsResponse.data[5]}`;
       //setPokemonHints(pokemonHintsArray);
       console.log(`Stat Names: `, statNames);
     } 
@@ -122,11 +122,11 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
       if (evolutionResponse.data[0] === true) {
         setPokemonEvolution("Final Stage");
         pokemonHintsArray[9] = 'Final Stage';
-        //setPokemonHints(pokemonHintsArray);
+        setPokemonHints(pokemonHintsArray);
       } else {
         setPokemonEvolution("Not Final Stage");
         pokemonHintsArray[9] = 'Not Final Stage';
-        //setPokemonHints(pokemonHintsArray);
+        setPokemonHints(pokemonHintsArray);
       }
     } 
     catch (err) {  
@@ -333,8 +333,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     const pokemonDetailsDefault = [selectedOption.label, '', '', '', '', '', '']
     setPokemonDetailsArray(pokemonDetailsDefault);
     setPokemonDetails(pokemonDetailsDefault);
-    console.log(pokemonHintsArray);
-    setPokemonHints(pokemonHintsArray);
+    //console.log(pokemonHintsArray);
     console.log(`Option selected:`, selectedOption);
   };
 
