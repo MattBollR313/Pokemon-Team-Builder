@@ -7,6 +7,9 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import PokemonSlot from '../pokemonSlot/PokemonSlot';
 import TypeCoverageTable from '../typeCoverageTable/TypeCoverageTable';
 import './Home.css';
+import { Box } from '@mui/material';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 const Home = () => {
 
@@ -198,6 +201,39 @@ const Home = () => {
     }
   };
 
+  // Hint Carousel Functionality
+  const [pokemonOneHints, setPokemonOneHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+  const [pokemonTwoHints, setPokemonTwoHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+  const [pokemonThreeHints, setPokemonThreeHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+  const [pokemonFourHints, setPokemonFourHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+  const [pokemonFiveHints, setPokemonFiveHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+  const [pokemonSixHints, setPokemonSixHints] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+
+  let hintRequest = api.create({
+    headers: {
+      'pokemon-1': pokemonOneHints,
+      'pokemon-2': pokemonTwoHints,
+      'pokemon-3': pokemonThreeHints,
+      'pokemon-4': pokemonFourHints,
+      'pokemon-5': pokemonFiveHints,
+      'pokemon-6': pokemonSixHints
+    }
+  })
+
+  const [allHints, setAllHints] = useState(['']);
+
+  const getAllHints = async () => {
+    try {
+      console.log(`Pokemon One Hints: `, pokemonOneHints);
+      const allHintsResponse = await hintRequest.get(`/api/hints`);
+      setAllHints(allHintsResponse.data);
+      console.log(`All Hints:`, allHintsResponse.data);
+    } 
+    catch (err) {  
+      console.log(err);
+    }    
+  }
+
   // Pokemon Type Chart Input
   const [pokemonOneTypes, setPokemonOneTypes] = useState([]);
   const [pokemonTwoTypes, setPokemonTwoTypes] = useState([]);
@@ -219,7 +255,11 @@ const Home = () => {
   useEffect(() => {
     getPokemonGame();
     getTeamNames();
-  },[])
+  },[]);
+
+  useEffect(() => {
+    getAllHints();
+  }, [pokemonOneHints, pokemonTwoHints, pokemonThreeHints, pokemonFourHints, pokemonFiveHints, pokemonSixHints]);
 
   return (
     <Container fluid="lg" data-testid="home-1">
@@ -229,6 +269,7 @@ const Home = () => {
             <div><Select options={gameOptions} onChange={handleChange} autoFocus={true} isClearable={true} placeholder={"Select a game"} /></div>
             <div>&nbsp;</div>
           </Col>
+
           <Col className="mx-auto" md={6}>
             <div>&nbsp;</div>
             <div><Select options={teamOptions} onChange={handleTeamChange} autoFocus={true} isClearable={true} placeholder={"Select an existing team"} /></div>
@@ -243,6 +284,16 @@ const Home = () => {
               </Button>
             </Form>
           </Col>
+
+          <Col className="mx-auto" md={8}>
+            <Box className="hint-box">
+              <Carousel showThumbs={false} >
+                {allHints.map((hint) => {
+                  return(<div>{hint}</div>)
+                })}
+              </Carousel>
+            </Box>  
+          </Col>
           
           <div className="d-lg-none">&nbsp;</div>
           <div className="d-xs-block d-lg-none"><Button onClick={handleTableClick}>Toggle Type Coverage Table</Button></div>
@@ -252,32 +303,32 @@ const Home = () => {
         <Col xs={12} lg={6}>
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonOneTypes} setPokemonDetails={setPokemonOneDetails} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonOneTypes} setPokemonDetails={setPokemonOneDetails} setPokemonHints={setPokemonOneHints} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonTwoTypes} setPokemonDetails={setPokemonTwoDetails} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonTwoTypes} setPokemonDetails={setPokemonTwoDetails} setPokemonHints={setPokemonTwoHints} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonThreeTypes} setPokemonDetails={setPokemonThreeDetails} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonThreeTypes} setPokemonDetails={setPokemonThreeDetails} setPokemonHints={setPokemonThreeHints} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFourTypes} setPokemonDetails={setPokemonFourDetails} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFourTypes} setPokemonDetails={setPokemonFourDetails} setPokemonHints={setPokemonFourHints} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFiveTypes} setPokemonDetails={setPokemonFiveDetails} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonFiveTypes} setPokemonDetails={setPokemonFiveDetails} setPokemonHints={setPokemonFiveHints} />}
             </div>
           }
           {
             <div>
-              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonSixTypes} setPokemonDetails={setPokemonSixDetails} />}
+              {<PokemonSlot availablePokemon={availPokemon} gameGeneration={modifyGameName(selected)} setPokemonTableType={setPokemonSixTypes} setPokemonDetails={setPokemonSixDetails} setPokemonHints={setPokemonSixHints} />}
             </div>
           }
         </Col>

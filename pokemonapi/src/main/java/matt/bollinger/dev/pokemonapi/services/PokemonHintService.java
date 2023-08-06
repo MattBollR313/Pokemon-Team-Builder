@@ -11,6 +11,10 @@ public class PokemonHintService {
     
     public List<String> getHints(List<String> pokemon1, List<String> pokemon2, List<String> pokemon3,
             List<String> pokemon4, List<String> pokemon5, List<String> pokemon6) {
+        String notCompleteHint = "";
+        if (pokemon1.get(0).equals("") || pokemon2.get(0).equals("") || pokemon3.get(0).equals("")
+            || pokemon4.get(0).equals("") || pokemon5.get(0).equals("") || pokemon6.get(0).equals(""))
+            notCompleteHint = "Six Pokemon have not been added to your team. Consider filling out the remaining team";
         List<String> types = getTypes(pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6);
         Map<String, Integer> typeHints = TypeHints.getTypeHints(types);
         List<List<String>> evolutionStatuses = getEvolutionStatuses(pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6);
@@ -19,38 +23,40 @@ public class PokemonHintService {
         allWeightedHints.putAll(typeHints);
         allWeightedHints.putAll(evolutionStatusHints);
         List<String> finalHints = getFinalHints(allWeightedHints);
+        if (!notCompleteHint.equals(""))
+            finalHints.add(notCompleteHint);
         return finalHints;
     }
 
     public List<String> getTypes(List<String> pokemon1, List<String> pokemon2, List<String> pokemon3,
             List<String> pokemon4, List<String> pokemon5, List<String> pokemon6) {
         List<String> types = new ArrayList<>();
-        if (!pokemon1.isEmpty()) {
+        if (!pokemon1.get(0).equals("")) {
             types.add(pokemon1.get(7));
             if (!pokemon1.get(8).equals(""))
                 types.add(pokemon1.get(8));
         }
-        if (!pokemon2.isEmpty()) {
+        if (!pokemon2.get(0).equals("")) {
             types.add(pokemon2.get(7));
             if (!pokemon2.get(8).equals(""))
                 types.add(pokemon2.get(8));
         }
-        if (!pokemon3.isEmpty()) {
+        if (!pokemon3.get(0).equals("")) {
             types.add(pokemon3.get(7));
             if (!pokemon3.get(8).equals(""))
                 types.add(pokemon3.get(8));
         }
-        if (!pokemon4.isEmpty()) {
+        if (!pokemon4.get(0).equals("")) {
             types.add(pokemon4.get(7));
             if (!pokemon4.get(8).equals(""))
                 types.add(pokemon4.get(8));
         }
-        if (!pokemon5.isEmpty()) {
+        if (!pokemon5.get(0).equals("")) {
             types.add(pokemon5.get(7));
             if (!pokemon5.get(8).equals(""))
                 types.add(pokemon5.get(8));
         }
-        if (!pokemon6.isEmpty()) {
+        if (!pokemon6.get(0).equals("")) {
             types.add(pokemon6.get(7));
             if (!pokemon6.get(8).equals(""))
                 types.add(pokemon6.get(8));
@@ -61,12 +67,18 @@ public class PokemonHintService {
     public List<List<String>> getEvolutionStatuses(List<String> pokemon1, List<String> pokemon2, List<String> pokemon3,
             List<String> pokemon4, List<String> pokemon5, List<String> pokemon6) {
         List<List<String>> evolutionStatuses = new ArrayList<>();
-        evolutionStatuses.add(Arrays.asList(pokemon1.get(0), pokemon1.get(9)));
-        evolutionStatuses.add(Arrays.asList(pokemon2.get(0), pokemon2.get(9)));
-        evolutionStatuses.add(Arrays.asList(pokemon3.get(0), pokemon3.get(9)));
-        evolutionStatuses.add(Arrays.asList(pokemon4.get(0), pokemon4.get(9)));
-        evolutionStatuses.add(Arrays.asList(pokemon5.get(0), pokemon5.get(9)));
-        evolutionStatuses.add(Arrays.asList(pokemon6.get(0), pokemon6.get(9)));
+        if (!pokemon1.get(0).equals(""))
+            evolutionStatuses.add(Arrays.asList(pokemon1.get(0), pokemon1.get(9)));
+        if (!pokemon2.get(0).equals(""))
+            evolutionStatuses.add(Arrays.asList(pokemon2.get(0), pokemon2.get(9)));
+        if (!pokemon3.get(0).equals(""))
+            evolutionStatuses.add(Arrays.asList(pokemon3.get(0), pokemon3.get(9)));
+        if (!pokemon4.get(0).equals(""))
+            evolutionStatuses.add(Arrays.asList(pokemon4.get(0), pokemon4.get(9)));
+        if (!pokemon5.get(0).equals(""))
+            evolutionStatuses.add(Arrays.asList(pokemon5.get(0), pokemon5.get(9)));
+        if (!pokemon6.get(0).equals(""))
+            evolutionStatuses.add(Arrays.asList(pokemon6.get(0), pokemon6.get(9)));
         return evolutionStatuses;
     }
 

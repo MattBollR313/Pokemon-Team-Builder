@@ -9,11 +9,12 @@ import './PokemonSlot.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
-const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, setPokemonDetails}) => {
+const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, setPokemonDetails, setPokemonHints}) => {
 
   const [pokemonInfo, setPokemonInfo] = useState(null);
 
   const [pokemonDetailsArray, setPokemonDetailsArray] = useState([]);
+  const [pokemonHintsArray, setPokemonHintsArray] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
 
   // Add Button Functionality
   const [addClick, setAddClick] = useState(false);
@@ -64,12 +65,17 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
         setPokemonTypes([
           `images/${typesResponse.data[0]}.png`
         ]);
+        pokemonHintsArray[7] = typesResponse.data[0];
+        //setPokemonHints(pokemonHintsArray);
       } else {
         setPokemonTableType([`${correctPokemonName}`, `${typesResponse.data[0]}`, `${typesResponse.data[1]}`]);
         setPokemonTypes([
           `images/${typesResponse.data[0]}.png`,
           `images/${typesResponse.data[1]}.png`
         ]);
+        pokemonHintsArray[7] = typesResponse.data[0];
+        pokemonHintsArray[8] = typesResponse.data[1];
+        //setPokemonHints(pokemonHintsArray);
       }
     } 
     catch (err) {  
@@ -92,6 +98,13 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
         `Sp. Def: ${statsResponse.data[4]}`,
         `Speed: ${statsResponse.data[5]}`
       ]);
+      pokemonHintsArray[1] = statsResponse.data[0];
+      pokemonHintsArray[2] = statsResponse.data[1];
+      pokemonHintsArray[3] = statsResponse.data[2];
+      pokemonHintsArray[4] = statsResponse.data[3];
+      pokemonHintsArray[5] = statsResponse.data[4];
+      pokemonHintsArray[6] = statsResponse.data[5];
+      //setPokemonHints(pokemonHintsArray);
       console.log(`Stat Names: `, statNames);
     } 
     catch (err) {  
@@ -106,10 +119,15 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     try {  
       const evolutionResponse = await api.get(`/api/evolution/${pokemonName}`);
       console.log(`Evolution Status Returned:`, evolutionResponse.data);
-      if (evolutionResponse.data[0] === true)
+      if (evolutionResponse.data[0] === true) {
         setPokemonEvolution("Final Stage");
-      else
+        pokemonHintsArray[9] = 'Final Stage';
+        //setPokemonHints(pokemonHintsArray);
+      } else {
         setPokemonEvolution("Not Final Stage");
+        pokemonHintsArray[9] = 'Not Final Stage';
+        //setPokemonHints(pokemonHintsArray);
+      }
     } 
     catch (err) {  
       console.log(err);
@@ -169,6 +187,10 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     try {  
       const moveDetailsResponse = await api.get(`/api/moves/${moveName}/${gameGeneration}`);
       console.log(`Move Details Returned:`, moveDetailsResponse.data);
+      pokemonHintsArray[11 + (dropdownNum-1)*3] = moveDetailsResponse.data[1];
+      pokemonHintsArray[12 + (dropdownNum-1)*3] = moveDetailsResponse.data[2];
+      console.log(`Move Hints Updated`, pokemonHintsArray);
+      setPokemonHints(pokemonHintsArray);
       if (dropdownNum === 1)
         setMoveDetails([
           moveDetailsResponse.data[0],
@@ -215,17 +237,31 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     if (selectedOption !== null) {
       pokemonDetailsArray[2 + dropdownNum] = moveNames[selectedOption.value][0];
       setPokemonDetails(pokemonDetailsArray);
+      pokemonHintsArray[10 + (dropdownNum-1)*3] = selectedOption.label;
       getMoveDetails(moveNames[selectedOption.value][0], dropdownNum);
       console.log(`Option selected:`, selectedOption);
     } else {
-      if (dropdownNum === 1)
+      if (dropdownNum === 1) {
         setMoveDetails([]);
-      else if (dropdownNum === 2)
+        pokemonHintsArray[10] = '';
+        pokemonHintsArray[11] = '';
+        pokemonHintsArray[12] = '';
+      } else if (dropdownNum === 2) {
         setMoveDetails2([]);
-      else if (dropdownNum === 3)
+        pokemonHintsArray[13] = '';
+        pokemonHintsArray[14] = '';
+        pokemonHintsArray[15] = '';
+      } else if (dropdownNum === 3) {
         setMoveDetails3([]);
-      else
+        pokemonHintsArray[16] = '';
+        pokemonHintsArray[17] = '';
+        pokemonHintsArray[18] = '';
+      } else {
         setMoveDetails4([]);
+        pokemonHintsArray[19] = '';
+        pokemonHintsArray[20] = '';
+        pokemonHintsArray[21] = '';
+      }
       pokemonDetailsArray[2 + dropdownNum] = '';
       setPokemonDetails(pokemonDetailsArray);
     }
@@ -279,6 +315,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
 
   // Handle Change of Pokemon Selection
   const handlePokemonChange = (selectedOption) => {
+    pokemonHintsArray[0] = selectedOption.label;
     setPokemonInfo(selectedOption.label);
     setAddClick(false);
     const paramName = selectedOption.label.charAt(0).toLowerCase() + selectedOption.label.slice(1);
@@ -296,6 +333,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     const pokemonDetailsDefault = [selectedOption.label, '', '', '', '', '', '']
     setPokemonDetailsArray(pokemonDetailsDefault);
     setPokemonDetails(pokemonDetailsDefault);
+    console.log(pokemonHintsArray);
+    setPokemonHints(pokemonHintsArray);
     console.log(`Option selected:`, selectedOption);
   };
 
@@ -317,6 +356,8 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     setPokemonEvolution(null);
     setPokemonDetailsArray(['']);
     setPokemonDetails(['']);
+    setPokemonHintsArray(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+    setPokemonHints(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
     console.log("Box Cleared");
   };
 
