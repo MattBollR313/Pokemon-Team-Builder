@@ -10,6 +10,8 @@ import './Home.css';
 import { Box } from '@mui/material';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const Home = () => {
 
@@ -273,6 +275,34 @@ const Home = () => {
             <div><Select options={teamOptions} onChange={handleTeamChange} autoFocus={true} isClearable={true} placeholder={"Select an existing team"} /></div>
             <div>&nbsp;</div>
           </Col>
+          { selectedTeamDetails.length !== 0 ? <div><Popup trigger={<Button variant="success">View Team Information</Button>}>
+            <div>Chosen Game: {selectedTeamDetails.chosenGame}</div>
+            <div>Pokemon 1:</div>
+            <div>{selectedTeamDetails.pokemon1.map((info) => {
+                return(<div>{info}</div>)
+              })}</div>
+            <div>Pokemon 2:</div>
+            <div>{selectedTeamDetails.pokemon2.map((info) => {
+                return(<div>{info}</div>)
+              })}</div>
+            <div>Pokemon 3:</div>
+            <div>{selectedTeamDetails.pokemon3.map((info) => {
+                return(<div>{info}</div>)
+              })}</div>
+            <div>Pokemon 4:</div>
+            <div>{selectedTeamDetails.pokemon4.map((info) => {
+                return(<div>{info}</div>)
+              })}</div>
+            <div>Pokemon 5:</div>
+            <div>{selectedTeamDetails.pokemon5.map((info) => {
+                return(<div>{info}</div>)
+              })}</div>
+            <div>Pokemon 6:</div>
+            <div>{selectedTeamDetails.pokemon6.map((info) => {
+                return(<div>{info}</div>)
+              })}</div>
+          </Popup><div>&nbsp;</div></div> : <div>&nbsp;</div>}
+
           <Col className="mx-auto" md={8}>
             <Form onSubmit={onFormSubmit}>
               <Form.Control required type="text" onChange={onInput} value={value} placeholder="Enter team name" />

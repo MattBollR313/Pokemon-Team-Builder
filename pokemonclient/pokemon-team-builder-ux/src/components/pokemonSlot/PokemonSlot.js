@@ -66,7 +66,6 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
           `images/${typesResponse.data[0]}.png`
         ]);
         pokemonHintsArray[7] = typesResponse.data[0];
-        //setPokemonHints(pokemonHintsArray);
       } else {
         setPokemonTableType([`${correctPokemonName}`, `${typesResponse.data[0]}`, `${typesResponse.data[1]}`]);
         setPokemonTypes([
@@ -75,7 +74,6 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
         ]);
         pokemonHintsArray[7] = typesResponse.data[0];
         pokemonHintsArray[8] = typesResponse.data[1];
-        //setPokemonHints(pokemonHintsArray);
       }
     } 
     catch (err) {  
@@ -104,7 +102,6 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
       pokemonHintsArray[4] = `${statsResponse.data[3]}`;
       pokemonHintsArray[5] = `${statsResponse.data[4]}`;
       pokemonHintsArray[6] = `${statsResponse.data[5]}`;
-      //setPokemonHints(pokemonHintsArray);
       console.log(`Stat Names: `, statNames);
     } 
     catch (err) {  
@@ -333,7 +330,6 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
     const pokemonDetailsDefault = [selectedOption.label, '', '', '', '', '', '']
     setPokemonDetailsArray(pokemonDetailsDefault);
     setPokemonDetails(pokemonDetailsDefault);
-    //console.log(pokemonHintsArray);
     console.log(`Option selected:`, selectedOption);
   };
 
