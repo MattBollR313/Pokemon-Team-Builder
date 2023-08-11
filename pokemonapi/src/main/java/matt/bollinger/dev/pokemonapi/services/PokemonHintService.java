@@ -21,10 +21,13 @@ public class PokemonHintService {
         Map<String, Integer> evolutionStatusHints = EvolutionStatusHints.getEvolutionStatusHints(evolutionStatuses);
         List<List<String>> baseStats = getBaseStats(pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6);
         Map<String, Integer> baseStatsHints = BaseStatsHints.getBaseStatsHints(baseStats);
+        List<List<String>> moveSetDetails = getMovesetDetails(pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6);
+        Map<String, Integer> moveSetHints = MoveHints.getMoveSetHints(moveSetDetails);
         Map<String, Integer> allWeightedHints = new HashMap<>();
         allWeightedHints.putAll(typeHints);
         allWeightedHints.putAll(evolutionStatusHints);
         allWeightedHints.putAll(baseStatsHints);
+        allWeightedHints.putAll(moveSetHints);
         List<String> finalHints = getFinalHints(allWeightedHints);
         if (!notCompleteHint.equals(""))
             finalHints.add(notCompleteHint);
@@ -144,6 +147,32 @@ public class PokemonHintService {
         return baseStats;
     }
 
+    private List<List<String>> getMovesetDetails(List<String> pokemon1, List<String> pokemon2, List<String> pokemon3,
+            List<String> pokemon4, List<String> pokemon5, List<String> pokemon6) {
+        List<List<String>> moveSetDetails = new ArrayList<>();
+        if (!pokemon1.get(0).equals(""))
+            moveSetDetails.add(getSinglePokemonMoveDetails(pokemon1));
+        if (!pokemon2.get(0).equals(""))
+            moveSetDetails.add(getSinglePokemonMoveDetails(pokemon2));
+        if (!pokemon3.get(0).equals(""))
+            moveSetDetails.add(getSinglePokemonMoveDetails(pokemon3));
+        if (!pokemon4.get(0).equals(""))
+            moveSetDetails.add(getSinglePokemonMoveDetails(pokemon4));
+        if (!pokemon5.get(0).equals(""))
+            moveSetDetails.add(getSinglePokemonMoveDetails(pokemon5));
+        if (!pokemon6.get(0).equals(""))
+            moveSetDetails.add(getSinglePokemonMoveDetails(pokemon6));
+        return moveSetDetails;
+    }
+
+    private List<String> getSinglePokemonMoveDetails(List<String> allPokemonInfo) {
+        List<String> pokemonDetails = new ArrayList<>();
+        pokemonDetails.addAll(Arrays.asList(allPokemonInfo.get(0), allPokemonInfo.get(2), 
+            allPokemonInfo.get(4), allPokemonInfo.get(7), allPokemonInfo.get(8)));
+        pokemonDetails.addAll(allPokemonInfo.subList(10, 22));
+        return pokemonDetails;
+    }
+
     private List<String> getFinalHints(Map<String, Integer> allHints) {
         List<Map.Entry<String, Integer> > hintList = new ArrayList<Map.Entry<String, Integer> >(allHints.entrySet());
  
@@ -155,12 +184,12 @@ public class PokemonHintService {
         });
 
         List<String> finalHints = new ArrayList<>();
-        if (hintList.size() <= 5) {
+        if (hintList.size() <= 4) {
             for (int i = 0; i < hintList.size(); i++) {
                 finalHints.add(hintList.get(i).getKey());
             }
         } else {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 finalHints.add(hintList.get(i).getKey());
             }
         }
