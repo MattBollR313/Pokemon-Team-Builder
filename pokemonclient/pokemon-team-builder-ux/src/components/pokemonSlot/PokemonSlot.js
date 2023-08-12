@@ -9,9 +9,12 @@ import './PokemonSlot.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
-const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) => {
+const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, setPokemonDetails, setPokemonHints}) => {
 
   const [pokemonInfo, setPokemonInfo] = useState(null);
+
+  const [pokemonDetailsArray, setPokemonDetailsArray] = useState([]);
+  const [pokemonHintsArray, setPokemonHintsArray] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
 
   // Add Button Functionality
   const [addClick, setAddClick] = useState(false);
@@ -62,12 +65,15 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
         setPokemonTypes([
           `images/${typesResponse.data[0]}.png`
         ]);
+        pokemonHintsArray[7] = typesResponse.data[0];
       } else {
         setPokemonTableType([`${correctPokemonName}`, `${typesResponse.data[0]}`, `${typesResponse.data[1]}`]);
         setPokemonTypes([
           `images/${typesResponse.data[0]}.png`,
           `images/${typesResponse.data[1]}.png`
         ]);
+        pokemonHintsArray[7] = typesResponse.data[0];
+        pokemonHintsArray[8] = typesResponse.data[1];
       }
     } 
     catch (err) {  
@@ -90,6 +96,12 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
         `Sp. Def: ${statsResponse.data[4]}`,
         `Speed: ${statsResponse.data[5]}`
       ]);
+      pokemonHintsArray[1] = `${statsResponse.data[0]}`;
+      pokemonHintsArray[2] = `${statsResponse.data[1]}`;
+      pokemonHintsArray[3] = `${statsResponse.data[2]}`;
+      pokemonHintsArray[4] = `${statsResponse.data[3]}`;
+      pokemonHintsArray[5] = `${statsResponse.data[4]}`;
+      pokemonHintsArray[6] = `${statsResponse.data[5]}`;
       console.log(`Stat Names: `, statNames);
     } 
     catch (err) {  
@@ -98,16 +110,21 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
   }
 
   // Pokemon Evolution Status
-  const [pokemonEvolution, setPokemonEvolution] = useState(null); // Must have [] as an argument as will get an undefined error otherwise
+  const [pokemonEvolution, setPokemonEvolution] = useState(null);
 
   const getPokemonEvolution = async (pokemonName) => {
     try {  
       const evolutionResponse = await api.get(`/api/evolution/${pokemonName}`);
       console.log(`Evolution Status Returned:`, evolutionResponse.data);
-      if (evolutionResponse.data[0] === true)
+      if (evolutionResponse.data[0] === true) {
         setPokemonEvolution("Final Stage");
-      else
+        pokemonHintsArray[9] = 'Final Stage';
+        setPokemonHints(pokemonHintsArray);
+      } else {
         setPokemonEvolution("Not Final Stage");
+        pokemonHintsArray[9] = 'Not Final Stage';
+        setPokemonHints(pokemonHintsArray);
+      }
     } 
     catch (err) {  
       console.log(err);
@@ -127,9 +144,13 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
 
   const handleAbilityChange = (selectedOption) => {
     if (selectedOption !== null) {
+      pokemonDetailsArray[1] = selectedOption.label;
+      setPokemonDetails(pokemonDetailsArray);
       setAbilityDescription(pokemonAbilities[selectedOption.value][1]);
       console.log(`Option selected:`, selectedOption);
     } else {
+      pokemonDetailsArray[1] = '';
+      setPokemonDetails(pokemonDetailsArray);
       setAbilityDescription(null);
     }
   };
@@ -160,9 +181,13 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
   const [moveDetails3, setMoveDetails3] = useState([]);
   const [moveDetails4, setMoveDetails4] = useState([]);
   const getMoveDetails = async (moveName, dropdownNum) => {
-    try {  
+    try {
       const moveDetailsResponse = await api.get(`/api/moves/${moveName}/${gameGeneration}`);
       console.log(`Move Details Returned:`, moveDetailsResponse.data);
+      pokemonHintsArray[11 + (dropdownNum-1)*3] = moveDetailsResponse.data[1];
+      pokemonHintsArray[12 + (dropdownNum-1)*3] = moveDetailsResponse.data[2];
+      console.log(`Move Hints Updated`, pokemonHintsArray);
+      setPokemonHints(pokemonHintsArray);
       if (dropdownNum === 1)
         setMoveDetails([
           moveDetailsResponse.data[0],
@@ -207,17 +232,35 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
 
   const handleMoveChange = (selectedOption, dropdownNum) => {
     if (selectedOption !== null) {
+      pokemonDetailsArray[2 + dropdownNum] = moveNames[selectedOption.value][0];
+      setPokemonDetails(pokemonDetailsArray);
+      pokemonHintsArray[10 + (dropdownNum-1)*3] = selectedOption.label;
       getMoveDetails(moveNames[selectedOption.value][0], dropdownNum);
       console.log(`Option selected:`, selectedOption);
     } else {
-      if (dropdownNum === 1)
+      if (dropdownNum === 1) {
         setMoveDetails([]);
-      else if (dropdownNum === 2)
+        pokemonHintsArray[10] = '';
+        pokemonHintsArray[11] = '';
+        pokemonHintsArray[12] = '';
+      } else if (dropdownNum === 2) {
         setMoveDetails2([]);
-      else if (dropdownNum === 3)
+        pokemonHintsArray[13] = '';
+        pokemonHintsArray[14] = '';
+        pokemonHintsArray[15] = '';
+      } else if (dropdownNum === 3) {
         setMoveDetails3([]);
-      else
+        pokemonHintsArray[16] = '';
+        pokemonHintsArray[17] = '';
+        pokemonHintsArray[18] = '';
+      } else {
         setMoveDetails4([]);
+        pokemonHintsArray[19] = '';
+        pokemonHintsArray[20] = '';
+        pokemonHintsArray[21] = '';
+      }
+      pokemonDetailsArray[2 + dropdownNum] = '';
+      setPokemonDetails(pokemonDetailsArray);
     }
   };
 
@@ -256,15 +299,20 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
 
   const handleHeldItemChange = (selectedOption) => {
     if (selectedOption !== null) {
+      pokemonDetailsArray[2] = heldItemNames[selectedOption.value][0];
+      setPokemonDetails(pokemonDetailsArray);
       getHeldItemDescription(heldItemNames[selectedOption.value][0]);
       console.log(`Option selected:`, selectedOption);
     } else {
+      pokemonDetailsArray[2] = '';
+      setPokemonDetails(pokemonDetailsArray);
       setHeldItemDescription(null);
     }
   };
 
   // Handle Change of Pokemon Selection
   const handlePokemonChange = (selectedOption) => {
+    pokemonHintsArray[0] = selectedOption.label;
     setPokemonInfo(selectedOption.label);
     setAddClick(false);
     const paramName = selectedOption.label.charAt(0).toLowerCase() + selectedOption.label.slice(1);
@@ -279,6 +327,9 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
     getPokemonTypes(paramName);
     getPokemonStats(paramName);
     getPokemonEvolution(paramName);
+    const pokemonDetailsDefault = [selectedOption.label, '', '', '', '', '', '']
+    setPokemonDetailsArray(pokemonDetailsDefault);
+    setPokemonDetails(pokemonDetailsDefault);
     console.log(`Option selected:`, selectedOption);
   };
 
@@ -298,6 +349,10 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType}) =>
     setPokemonTableType([]);
     setStatNames([]);
     setPokemonEvolution(null);
+    setPokemonDetailsArray(['']);
+    setPokemonDetails(['']);
+    setPokemonHintsArray(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+    setPokemonHints(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
     console.log("Box Cleared");
   };
 
