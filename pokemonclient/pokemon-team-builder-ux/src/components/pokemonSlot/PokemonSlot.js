@@ -181,7 +181,7 @@ const PokemonSlot = ({availablePokemon, gameGeneration, setPokemonTableType, set
   const [moveDetails3, setMoveDetails3] = useState([]);
   const [moveDetails4, setMoveDetails4] = useState([]);
   const getMoveDetails = async (moveName, dropdownNum) => {
-    try {  
+    try {
       const moveDetailsResponse = await api.get(`/api/moves/${moveName}/${gameGeneration}`);
       console.log(`Move Details Returned:`, moveDetailsResponse.data);
       pokemonHintsArray[11 + (dropdownNum-1)*3] = moveDetailsResponse.data[1];

@@ -272,7 +272,7 @@ const Home = () => {
 
           <Col className="mx-auto" md={6}>
             <div>&nbsp;</div>
-            <div><Select options={teamOptions} onChange={handleTeamChange} autoFocus={true} isClearable={true} placeholder={"Select an existing team"} /></div>
+            <div><Select options={teamOptions} onChange={handleTeamChange} isClearable={true} placeholder={"Select an existing team"} /></div>
             <div>&nbsp;</div>
           </Col>
           { selectedTeamDetails.length !== 0 ? <div><Popup trigger={<Button variant="success">View Team Information</Button>}>
